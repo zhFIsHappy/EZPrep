@@ -1,42 +1,18 @@
 .home-page {
   display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 9rem 4rem 2rem;
 }
 
-.home-page img {
-  padding: 5em;
-  width: 100%;
-  height: 100%;
+.home-page img:first-child {
+  position: absolute;
+  width: 30rem;
+  left: calc(50% - 15rem);
+  top: 0.5rem;
 }
 
-.group-category {
-  display: flex;
-
+.home-page img:last-child {
+  width: 110rem;
+  /* height: 100%; */
 }
-
-.group-button {
-  display: flex;
-
-}
-/* .welcome-text {
-  width: 20em;
-} */
-
-/* .category-image-items {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-.category-image-items a {
-  text-align: center;
-  cursor: pointer;
-} */
-
-/* .category-image-items div {
-  padding: 0.5em 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  transform: translateY(-2.25em);
-  margin-bottom: -2em;
-} */

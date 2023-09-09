@@ -2,11 +2,12 @@ header {
   /* background: white;
   opacity: 50%; */
   display: flex;
-  padding: 1em 2em 0;
+  padding: 1rem 2rem 0;
   align-content: center;
   justify-content: space-between;
   color: white;
   border-bottom: 1px solid white;
+  font-size: large;
 }
 
 section.group-category {
@@ -16,11 +17,14 @@ section.group-category {
 section.group-category a {
   all: unset;
 }
-
+section.group-category a:hover {
+  font-size: larger;
+}
 section.group-category a div {
-  margin: 1em;
+  margin: 1rem;
   margin-bottom: 0;
-  padding: 1em;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 .dropdown {
@@ -34,7 +38,7 @@ section.group-category a div {
 }
 
 .dropdown li {
-  padding: 0.25em 0.5em;
+  padding: 0.25rem 0.5rem;
 }
 
 .dropdown a {
@@ -49,11 +53,35 @@ section.group-category a div {
 .dropdown:hover ul {
   display: block;
   position: absolute;
-  min-width: 8em;
+  min-width: 8rem;
   z-index: 1;
   cursor: pointer;
 }
 
+
+.group-category {
+  display: flex;
+}
+.group-category a {
+  cursor: pointer;
+}
+
+ul li {
+  cursor: pointer;
+}
+
+.group-button {
+  display: flex;
+}
+button {
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+button img {
+  margin-right: 0.5em;
+}
 
 section.group-button {
   display: flex;
@@ -62,10 +90,10 @@ section.group-button {
 section.group-button button {
   background-color: #9ACD32;
   border: none;
-  margin: 1em;
+  margin: 1rem;
   margin-bottom: 0;
-  padding: 1em;
-  border-radius: 50px;
+  padding: 1rem;
+  border-radius: 5rem;
 }
 @media (max-width: 600px) {
   header {
