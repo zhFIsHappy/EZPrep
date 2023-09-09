@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Bookstore</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="The homepage for My Bookstore" />
+
+    <!-- Import font-awesome icons -->
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+
+    <!-- order of CSS files is important (this is the "Cascade" part of CSS) -->
+
+    <!-- global.css contains resets, custom properties, and utility classes -->
+    <!-- <link rel="stylesheet" href="css/global.css" /> -->
+    <link rel="stylesheet" href="css/v2-compatible-reset.css">
+
+    <!-- start from the top-level component and work your way down -->
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/app-header.css" />
+    <link rel="stylesheet" href="css/header-dropdown.css" />
+    <link rel="stylesheet" href="css/app-footer.css" />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+
+  <body>
+    <main>
+      <header class="container">
+        <a href="index.html">
+          <img
+            src="images/site/logo.png"
+            alt="Another Bookstore Logo"
+            height="102px"
+            width="auto"
+          />
+        </a>
+
+        <section class="group-category">
+          <a>
+            <div class="dropdown">
+              <div><img src="images/site/IconexpandArrow.png" height="6px" width="12.7px" />Categories</div>
+              <ul>
+                <li><a href="category.html?category=Classics">Classics</a></li>
+                <li><a href="category.html?category=Fantasy">Fantasy</a></li>
+                <li><a href="category.html?category=Mystery">Mystery</a></li>
+                <li><a href="category.html?category=Romance">Romance</a></li>
+              </ul>
+            </div>
+          </a>
+          <a href="category.html?category=BestSeller">
+            <div>Best Seller</div>
+          </a>
+          <a href="category.html?category=NewReleases">
+            <div>New Releases</div>
+          </a>
+        </section>
+
+        <section class="group-button">
+          <button class="search">search</button>
+          <button class="cart">cart (0)</button>
+          <button class="login">login</button>
+        </section>
+      </header>
+
+      <div class="home-page">
+        <img
+          src="images/categories/collections.png"
+          alt="book-collections"
+          width="100%"
+          height="auto"
+        />
+      </div>
+      
+      <footer class="container">
+        <section class="links">
+          <a href="index.html">about</a>
+          <a href="index.html">contact</a>
+          <a href="index.html">directions</a>
+        </section>
+        <section class="social-media-icons">
+          <a>
+            <img src="images/site/social-fb.png" alt="socialFbIcon" height="24px" width="24px"/>
+          </a>
+          <a>
+            <img src="images/site/social-ins.png" alt="socialFbIcon" height="24px" width="24px"/>
+          </a>
+          <a>
+            <img src="images/site/social-linin.png" alt="socialFbIcon" height="24px" width="24px"/>
+          </a>
+          <a>
+            <img src="images/site/social-X.png" alt="socialFbIcon" height="24px" width="24px"/>
+          </a>
+        </section>
+      </footer>
+    </main>
+  </body>
+</html>

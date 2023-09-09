@@ -1,0 +1,11 @@
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  background-image: url(https://cdn.mos.cms.futurecdn.net/8FXSYkHRGGLNhqKaWGfNLQ-970-80.jpg.webp);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
