@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
+import Home from './components/Home'
+import Category from './components/Category';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom"
+import {useEffect, useState} from "react";
+import {fetchCategories} from "./api";
 
 function App() {
+    const [categoryList, setCategoryList] = useState([]);
+
+    useEffect(() => {
+        fetchCategories()
+            .then((data) => {
+                setCategoryList(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router basename="RanBookstoreReactState">
+        <AppHeader categoryList={categoryList} />
+        <Routes>
+          <Route path="/" element={<Home categoryList={categoryList} />} />
+          <Route path="/categories/:id" element={<Category categoryList={categoryList} />} />
+          <Route path="*" element={<div style={{fontSize: "large"}}>Page Not Found</div>} />
+        </Routes>
+
+        <AppFooter />
+
+      </Router>
   );
 }
 
 export default App;
+

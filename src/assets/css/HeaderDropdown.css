@@ -1,0 +1,41 @@
+.header-dropdown {
+    position: relative;
+}
+.header-dropdown:before {
+    content: "\25bc";
+}
+
+.categories-button {
+    background-color: var(--primary-color-dark);
+    margin-top: 0.25em;
+}
+
+
+.header-dropdown ul {
+    background-color: white;
+    color: black;
+    display: none;
+}
+
+.header-dropdown li {
+    padding: 0 0.5em;
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+
+.header-dropdown a {
+    color: black;
+    text-decoration: none;
+}
+
+.header-dropdown li:hover {
+    background: lightgray;
+}
+
+.header-dropdown:hover ul {
+    display: block;
+    position: absolute;
+    min-width: 6em;
+    z-index: 1;
+    cursor: pointer;
+}
