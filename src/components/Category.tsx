@@ -5,15 +5,15 @@ import CategoryNav from "./CategoryNav";
 import { useParams } from 'react-router-dom';
 import {useContext, useEffect, useState} from "react";
 import {fetchBookList} from "../api";
-import {categoryProps, CategoryItem} from "../types";
+import {CategoryItem} from "../types";
+import {CategoryContext} from "../contexts/CategoryContext";
 
 
 function Category() {
 
     const { id } = useParams() as { id: string };
     const [bookList, setBookList] = useState([]);
-    // @ts-ignore
-    const categoryList = useContext<CategoryItem[] | []>(Category);
+    const categoryList = useContext<CategoryItem[] | []>(CategoryContext);
 
     useEffect(() => {
             const categoryName = categoryList?.filter((category: CategoryItem) =>

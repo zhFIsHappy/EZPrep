@@ -71,7 +71,7 @@ export const fetchBookDetails = (bookId) => {
 
 // Function to add a book to the user's cart
 export const addToCart = (bookId, userId) => {
-    const data = { bookId, userId };
+    const data = {bookId, userId};
     return axios.post(`${baseURL}/cart/add`, data)
         .then((response) => response.data)
         .catch((error) => {

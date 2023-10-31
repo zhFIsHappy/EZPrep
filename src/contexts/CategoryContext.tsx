@@ -3,8 +3,8 @@ import {createContext, useEffect, useState} from "react";
 import {fetchCategories} from "../api";
 
 
-export const CategoryContext = createContext<CategoryItem[] | []>([]);   // creates a context called Category
-// Category.displayName = 'CategoryContext';
+export const CategoryContext = createContext<CategoryItem[] | []>([]);
+CategoryContext.displayName = 'CategoryContext';
 
 
 // @ts-ignore
@@ -25,7 +25,7 @@ export function CategoryContextProvider({children}) {
 
     return (
         <CategoryContext.Provider value={categoryList}>
-            {!loading ? children : <div>Loading...</div>}
+            {!loading ? children : <div style={{color: "white", fontSize: "large"}}>Loading...</div>}
         </CategoryContext.Provider>
     );
 }

@@ -1,4 +1,3 @@
-
 import '../assets/css/global.css';
 import '../assets/css/Home.css'
 import '../assets/css/Category.css'
@@ -6,15 +5,14 @@ import CategoryBookList from "./CategoryBookList";
 import {useNavigate} from "react-router-dom";
 import {fetchSuggestBookList} from "../api";
 import {useContext, useEffect, useState} from "react";
-import {CategoryItem, categoryProps} from "../types";
-import Category from "../components/Category";
+import {CategoryItem} from "../types";
+import {CategoryContext} from "../contexts/CategoryContext";
 
 
 function Home() {
     const navigate = useNavigate();
     const [bookList, setBookList] = useState([]);
-    // @ts-ignore
-    const categoryList = useContext<CategoryItem[] | []>(Category);
+    const categoryList = useContext<CategoryItem[] | []>(CategoryContext);
 
     const handleNavigation = () => {
         navigate(`/categories/${1001}`);
