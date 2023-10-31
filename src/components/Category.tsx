@@ -3,18 +3,20 @@ import '../assets/css/Category.css'
 import CategoryBookList from "./CategoryBookList";
 import CategoryNav from "./CategoryNav";
 import { useParams } from 'react-router-dom';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {fetchBookList} from "../api";
 import {categoryProps, CategoryItem} from "../types";
 
 
-function Category({categoryList} : categoryProps) {
+function Category() {
 
     const { id } = useParams() as { id: string };
     const [bookList, setBookList] = useState([]);
+    // @ts-ignore
+    const categoryList = useContext<CategoryItem[] | []>(Category);
 
     useEffect(() => {
-            const categoryName = categoryList.filter((category: CategoryItem) =>
+            const categoryName = categoryList?.filter((category: CategoryItem) =>
                 category.categoryId == id)[0]?.name
 
             fetchBookList(categoryName)
@@ -37,7 +39,7 @@ function Category({categoryList} : categoryProps) {
             />
 
             <div className="book-section">
-                <CategoryNav categoryList={categoryList} />
+                <CategoryNav />
                 <div className="book-list-wrapper">
                     <div className="book-list">
                         <CategoryBookList bookList={bookList}/>

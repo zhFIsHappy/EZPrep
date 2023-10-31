@@ -5,20 +5,23 @@ import '../assets/css/Category.css'
 import CategoryBookList from "./CategoryBookList";
 import {useNavigate} from "react-router-dom";
 import {fetchSuggestBookList} from "../api";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CategoryItem, categoryProps} from "../types";
+import Category from "../components/Category";
 
 
-function Home({categoryList} : categoryProps) {
+function Home() {
     const navigate = useNavigate();
     const [bookList, setBookList] = useState([]);
+    // @ts-ignore
+    const categoryList = useContext<CategoryItem[] | []>(Category);
 
     const handleNavigation = () => {
         navigate(`/categories/${1001}`);
     }
 
     useEffect(() => {
-            const categoryName = categoryList.filter((category: CategoryItem) =>
+            const categoryName = categoryList?.filter((category: CategoryItem) =>
                 category.categoryId == '1001')[0]?.name
 
             fetchSuggestBookList(categoryName)

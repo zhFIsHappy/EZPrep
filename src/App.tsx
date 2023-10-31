@@ -7,34 +7,18 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
-import {useEffect, useState} from "react";
-import {fetchCategories} from "./api";
 
 function App() {
-    const [categoryList, setCategoryList] = useState([]);
-
-    useEffect(() => {
-        fetchCategories()
-            .then((data) => {
-                setCategoryList(data);
-            })
-            .catch((error) => {
-                console.error('Error fetching categories:', error);
-            });
-    }, []);
-
-
   return (
       <Router basename="RanBookstoreReactState">
-        <AppHeader categoryList={categoryList} />
+        <AppHeader />
         <Routes>
-          <Route path="/" element={<Home categoryList={categoryList} />} />
-          <Route path="/categories/:id" element={<Category categoryList={categoryList} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/categories/:id" element={<Category />} />
           <Route path="*" element={<div style={{fontSize: "large"}}>Page Not Found</div>} />
         </Routes>
 
         <AppFooter />
-
       </Router>
   );
 }

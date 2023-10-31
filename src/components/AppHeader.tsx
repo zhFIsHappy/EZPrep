@@ -4,7 +4,7 @@ import '../assets/css/global.css'
 import '../assets/css/AppHeader.css';
 import {CategoryItem} from "../types";
 
-function AppHeader({categoryList} : {categoryList: CategoryItem[]}){
+function AppHeader(){
 
     return(
         <header className="container">
@@ -17,7 +17,7 @@ function AppHeader({categoryList} : {categoryList: CategoryItem[]}){
                 </Link>
             </section>
             <section className="group-category">
-                <div><HeaderDropdown categoryList={categoryList}/></div>
+                <div><HeaderDropdown /></div>
                 <div><Link to ="/categories"> Best Seller</Link></div>
                 <div><Link to ="/categories"> New Releases</Link></div>
             </section>
