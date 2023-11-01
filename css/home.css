@@ -1,0 +1,18 @@
+.home-page {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 9rem 4rem 2rem;
+}
+
+.home-page img:first-child {
+  position: absolute;
+  width: 30rem;
+  left: calc(50% - 15rem);
+  top: 0.5rem;
+}
+
+.home-page img:last-child {
+  width: 110rem;
+  /* height: 100%; */
+}
