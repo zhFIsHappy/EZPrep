@@ -14,8 +14,7 @@ export const CartContext = createContext<{
 
 CartContext.displayName = 'CartContext';
 
-// @ts-ignore
-export function CartContextProvider({children}) {
+export function CartContextProvider({children}: React.PropsWithChildren<{}>) {
     // Use the useReducer hook to manage the cart state
     // @ts-ignore
     const [cart, dispatch] = useReducer(cartReducer, initialCartState);
