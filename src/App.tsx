@@ -1,7 +1,4 @@
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
-import Home from './components/Home'
-import Category from './components/Category';
+import Interview from './pages/Interview';
 import {
     BrowserRouter as Router,
     Routes,
@@ -10,15 +7,15 @@ import {
 
 function App() {
     return (
-        <Router basename="RanBookstoreReactState">
-            <AppHeader/>
+        <Router>
+            {/* <AppHeader/> */}
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/categories/:id" element={<Category/>}/>
+                <Route path="/" element={<Interview />}/>
+                <Route path="/interview" element={<Interview/>}/>
                 <Route path="*" element={<div style={{fontSize: "large"}}>Page Not Found</div>}/>
             </Routes>
 
-            <AppFooter/>
+            {/* <AppFooter/> */}
         </Router>
     );
 }

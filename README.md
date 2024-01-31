@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+
+Before you run this project, run:
+
+### `npm i`
+
 In the project directory, you can run:
 
 ### `npm start`
@@ -44,3 +49,18 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+```path
+EZprep
+    |-src
+    | --- assets         css & image
+    | --- components       page building blocks
+    | --- context    
+    | --- pages       I usually use 1 page per route
+    | --- reducer   
+    | --- api          api call backend
+    | --- App.tsx     some route component here
+    | --- index.tsx   entry
+    | --- types     types you want to use for ts
+```

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = 'http://localhost:8080/RanBookstoreReactState/api'; // Replace with your actual API URL
-const baseURL = 'http://webdev.cs.vt.edu:8080/RanBookstoreReactState/api'; // Replace with your actual API URL
+// const baseURL = 'http://localhost:8080/api'; // Replace with your actual API URL
+const baseURL = 'http://webdev.cs.vt.edu:8080/api'; // Replace with your actual API URL
 /**
  *
  * categories/name/Mystery
