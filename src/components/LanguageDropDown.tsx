@@ -1,23 +1,26 @@
 import "../assets/css/dropdown.css";
-import { useState } from "react";
-function Dropdown({selected, setSelected}: {selected : string, setSelected: React.Dispatch<React.SetStateAction<string>>} ){
-    const options = ['Java', 'C++', 'Javascript']
-    const [isActive, setIsActive] = useState(false);
-    <div className = "dropdownlanguage">
-        <div className = "dropdownlanguage-btn" onClick={(e) =>{
-            setIsActive(!isActive)}} >{selected}</div>
-        {isActive && 
-        (<div className="dropdownlanguage-content">
-            {options.map(option=>(
-                <div onClick={(e)=> setSelected(option)}
-                className = "dropdownlanguage-item">
-                    {option}
-                </div>
-            ))}
-            
-            
+import React, { useState } from "react";
+import languages from "../assets/static/language";
+function LanguageDropDown({ setLanguageChoice }: any) {
+  const getInitialState = () => {
+    const value = "apex";
+    return value;
+  };
+  const handleChange = (e: any) => {
+    setValue(e.target.value);
+    setLanguageChoice(e.target.value);
+  };
 
-        </div>)}
+  const [value, setValue] = useState(getInitialState);
+  const languageSelect = function (language: string) {
+    return <option>{language}</option>;
+  };
+  return (
+    <div className="dropDown">
+      <select value={value} onChange={handleChange}>
+        {languages.map(languageSelect)}
+      </select>
     </div>
+  );
 }
-export default Dropdown;
+export default LanguageDropDown;
