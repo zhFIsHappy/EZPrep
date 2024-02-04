@@ -4,17 +4,22 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Editor from '@monaco-editor/react';
 import LanguageDropDown from "./LanguageDropDown";
+import * as monaco from 'monaco-editor';
+import ReactAce from 'react-ace';
 function CodeEditor() {
-  const [selected, setSelected] = useState("");
+  const [languageChoice, setLanguageChoice] = useState("");
+  
+  console.log(languageChoice);
   return (
     <div className="editor-wrapper">
       <h1>Coding</h1>
       <p>
-        「インタビュー」は、あなたのインタビューの準備を支援するためのツールです。
-        
-        {/* <LanguageDropDown selected = {selected} setSelected={setSelected}></LanguageDropDown> */}
+          「インタビュー」は、あなたのインタビューの準備を支援するためのツールです。
+
+          <LanguageDropDown setLanguageChoice = {setLanguageChoice}/>
           <Editor height = "90vh" 
-                defaultLanguage = "javascript" 
+                defaultLanguage = {languageChoice} 
+                language = {languageChoice} 
                 defaultValue = "// Here's the playground you can start to code" 
                 theme = "vs-dark" 
                 options={{
@@ -23,6 +28,7 @@ function CodeEditor() {
                     },
                 }}  
               />
+              
         
         
       </p>
