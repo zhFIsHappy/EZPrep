@@ -1,58 +1,18 @@
 "use client";
 import "../assets/css/editor.css";
-import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
-import * as monaco from "monaco-editor";
-import ReactAce from "react-ace";
 function CodeEditor() {
   const [languageChoice, setLanguageChoice] = useState("html");
-  //   var model = Editor.getModel(); // we'll create a model for you if the editor created from string value.
-  // monaco.editor.setModelLanguage(model, "javascript")
-  const defaultCode = `
-<style>
-.zoom {
-overflow: hidden;
-margin: 0 auto;
-}
-.zoom img {
-width: 100%;
-transition: 0.9s all ease-in-out;
-cursor: pointer;
-}
-.zoom:hover img {
-transform: scale(1.2);
-}
-.modal-fullscreen{
-width:40vw !important;
-max-width:none;
-height:100%;
-margin:0;
-margin-right: 0 !important;
-}
-</style>
-`;
-  const editorCountainerRef = useRef(null);
-  const editorRef = useRef<HTMLInputElement>(null);
-
-  // useEffect(() => {
-  //   if (editorCountainerRef.current) {
-  //     let aa  = monaco.editor.create(editorCountainerRef.current, {
-  //         value: defaultCode,
-  //         language: "html",
-  //       });
-  //     if(editorRef.current  !== null ){
-  //       editorRef.current = aa;
-  //     }
-
-  //   }
-  //   return () => {
-  //     editorRef.current?.dispose();
-  //   };
-  // }, [editorCountainerRef]);
-
+  const editorRef = useRef(null as any);
   console.log(languageChoice);
+  function handleEditorDidMount(editor: any, monaco: any) {
+    editorRef.current = editor;
+  }
+  function submitValue() {
+    alert(editorRef.current?.getValue());
+  }
   return (
     <div className="editor-wrapper">
       <h1>Coding</h1>
@@ -64,12 +24,16 @@ margin-right: 0 !important;
           language={languageChoice}
           defaultValue="// Here's the playground you can start to code"
           theme="vs-dark"
+          onMount={handleEditorDidMount}
           options={{
             minimap: {
               enabled: false,
             },
           }}
         />
+        <button onClick={submitValue} style={{ float: "right" }} type="button">
+          Click Me!
+        </button>
       </p>
     </div>
   );
