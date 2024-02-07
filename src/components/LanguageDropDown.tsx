@@ -1,6 +1,7 @@
 import "../assets/css/dropdown.css";
 import React, { useState } from "react";
 import languages from "../assets/static/language";
+import NativeSelect from "@mui/material/NativeSelect";
 function LanguageDropDown({ setLanguageChoice }: any) {
   const getInitialState = () => {
     const value = "apex";
@@ -17,9 +18,17 @@ function LanguageDropDown({ setLanguageChoice }: any) {
   };
   return (
     <div className="dropDown">
-      <select value={value} onChange={handleChange}>
+      {/* <select value={value} onChange={handleChange}>
         {languages.map(languageSelect)}
-      </select>
+      </select> */}
+      <NativeSelect
+        // height="80vh"
+        variant="outlined"
+        value={value}
+        onChange={handleChange}
+      >
+        {languages.map(languageSelect)}
+      </NativeSelect>
     </div>
   );
 }
