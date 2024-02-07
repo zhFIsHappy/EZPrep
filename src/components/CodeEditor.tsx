@@ -4,15 +4,22 @@ import React, { useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
 import Button from "@mui/material/Button";
+import Axios from "axios";
 function CodeEditor() {
-  const [languageChoice, setLanguageChoice] = useState("html");
+  const [languageChoice, setLanguageChoice] = useState("apex");
   const editorRef = useRef(null as any);
-  console.log(languageChoice);
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
   }
   function submitValue() {
-    alert(editorRef.current?.getValue());
+    console.log(languageChoice);
+    Axios.post("http://0.0.0.0:8080/api/submit", {
+      problem_id: -1,
+      code: editorRef.current?.getValue(),
+      language: languageChoice,
+    }).then((response) => {
+      console.log(response);
+    });
   }
   return (
     <div className="editor-wrapper">
