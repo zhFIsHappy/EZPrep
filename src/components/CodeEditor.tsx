@@ -3,6 +3,7 @@ import "../assets/css/editor.css";
 import React, { useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
+import Button from "@mui/material/Button";
 function CodeEditor() {
   const [languageChoice, setLanguageChoice] = useState("html");
   const editorRef = useRef(null as any);
@@ -15,12 +16,10 @@ function CodeEditor() {
   }
   return (
     <div className="editor-wrapper">
-      <h1>Coding</h1>
-      <p>
-        「インタビュー」は、あなたのインタビューの準備を支援するためのツールです。
+      <div className="editor-layout-left-right">
         <LanguageDropDown setLanguageChoice={setLanguageChoice} />
         <Editor
-          height="90vh"
+          height="88%"
           language={languageChoice}
           defaultValue="// Here's the playground you can start to code"
           theme="vs-dark"
@@ -31,10 +30,15 @@ function CodeEditor() {
             },
           }}
         />
-        <button onClick={submitValue} style={{ float: "right" }} type="button">
-          Click Me!
-        </button>
-      </p>
+        <Button
+          variant="contained"
+          onClick={submitValue}
+          style={{ float: "right" }}
+          type="button"
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 }
