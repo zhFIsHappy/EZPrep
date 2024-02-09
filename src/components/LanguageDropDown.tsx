@@ -21,12 +21,7 @@ function LanguageDropDown({ setLanguageChoice }: any) {
       {/* <select value={value} onChange={handleChange}>
         {languages.map(languageSelect)}
       </select> */}
-      <NativeSelect
-        // height="80vh"
-        variant="outlined"
-        value={value}
-        onChange={handleChange}
-      >
+      <NativeSelect variant="outlined" value={value} onChange={handleChange}>
         {languages.map(languageSelect)}
       </NativeSelect>
     </div>
