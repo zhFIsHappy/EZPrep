@@ -4,12 +4,14 @@ import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 import "../assets/css/chatUI.css";
+import Typewriter from "react-ts-typewriter";
 
 export default function App() {
   const [messages, setMessages] = useState<string[]>([]);
   const [message, setMessage] = useState<string>("");
   const allMessages: string[] = [];
   const inputRef = useRef<HTMLInputElement>(null);
+  const welcomeMessage = "Your Chat With Interviewer Starts Here ...";
   const el = document.getElementById("messages-container");
   if (el) {
     el.scrollTop = el.scrollHeight;
@@ -44,7 +46,9 @@ export default function App() {
       {/* <div */}
       <ul id="messages-container" className="messages">
         <li>
-          <span>Your Chat With Interviewer Starts Here ...</span>
+          <span>
+            <Typewriter text={welcomeMessage} loop={false} cursor={false} />
+          </span>
         </li>
         {/* <li className="my-message">
           <span>FF test1</span>

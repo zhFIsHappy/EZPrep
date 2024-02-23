@@ -49,17 +49,17 @@ button {
     }
 
     &.my-message span {
-      background-color: #6d8fe8;
+      /* background-color: #6d8fe8; */
     }
 
     span {
-      background-color: #808080;
-      border-radius: 28px;
-      color: #fff;
-      display: inline-block;
-      font-size: 15px;
-      padding: 8px 15px;
-      max-width: 80%;
+      /* background-color: #808080; */
+      /* border-radius: 28px; */
+      /* color: #fff; */
+      /* display: inline-block; */
+      font-size: 10px;
+      /* padding: 8px 15px; */
+      /* max-width: 80%; */
     }
   }
 }
