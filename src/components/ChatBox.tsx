@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import React from "react";
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
@@ -10,7 +10,10 @@ export default function App() {
   const [message, setMessage] = useState<string>("");
   const allMessages: string[] = [];
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const el = document.getElementById("messages-container");
+  if (el) {
+    el.scrollTop = el.scrollHeight;
+  }
   const submit = (e) => {
     e.preventDefault();
     if (message.length === 0) {
@@ -38,11 +41,12 @@ export default function App() {
 
   return (
     <div className="App">
-      <ul className="messages">
+      {/* <div */}
+      <ul id="messages-container" className="messages">
         <li>
-          <span>FF test ...</span>
+          <span>Your Chat With Interviewer Starts Here ...</span>
         </li>
-        <li className="my-message">
+        {/* <li className="my-message">
           <span>FF test1</span>
         </li>
         <li>
@@ -53,7 +57,7 @@ export default function App() {
         </li>
         <li>
           <span>FF test2</span>
-        </li>
+        </li> */}
         {messages.map((message, index) => (
           <li className="my-message" key={index}>
             <span>{message}</span>
