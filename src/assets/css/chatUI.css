@@ -1,11 +1,9 @@
 .App {
   width: 50%;
-  height: 100%;
+  height: 90%;
   right: 0;
-  bottom: -40vh;
+  bottom: -30vh;
   position: fixed;
-  /* bottom: 0;
-  right: 0; */
   padding: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -13,7 +11,6 @@
 }
 .chat-window {
   padding: 16px;
-  /* max-width: 960px; */
   margin-left: auto;
   margin-right: auto;
 }
@@ -34,12 +31,13 @@ button {
 
 .messages {
   list-style-type: none;
-  padding: 0 0 80px 0;
+  padding: 0 0 20px 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   height: 50%;
+  /* display: flex; */
 
   li {
     margin-top: 20px;
@@ -51,17 +49,17 @@ button {
     }
 
     &.my-message span {
-      background-color: #6d8fe8;
+      /* background-color: #6d8fe8; */
     }
 
     span {
-      background-color: #808080;
-      border-radius: 28px;
-      color: #fff;
-      display: inline-block;
-      font-size: 15px;
-      padding: 8px 15px;
-      max-width: 80%;
+      /* background-color: #808080; */
+      /* border-radius: 28px; */
+      /* color: #fff; */
+      /* display: inline-block; */
+      font-size: 10px;
+      /* padding: 8px 15px; */
+      /* max-width: 80%; */
     }
   }
 }
@@ -70,7 +68,7 @@ button {
   display: block;
   border-radius: 22px;
   height: 55px;
-  margin-top: 30px;
+  margin-top: 10px;
   width: 100%;
   padding: 20px;
 }
