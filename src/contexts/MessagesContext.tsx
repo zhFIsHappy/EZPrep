@@ -16,7 +16,7 @@ export const MessagesContext = createContext<{
 MessagesContext.displayName = "MessagesContext";
 
 export function InterviewContextProvider({children}: React.PropsWithChildren<{}>) {
-  // Use the useReducer hook to manage the cart state
+  // Use the useReducer hook to manage the interview chat messages state
   // @ts-ignore
   const [messages, dispatch] = useReducer(messagesReducer, initialMessages);
 
