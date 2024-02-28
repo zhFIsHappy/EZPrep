@@ -1,3 +1,15 @@
+export enum SenderType {
+    SELF,
+    AI,
+    OTHER
+}
+
+export interface ChatMessage {
+    sender: SenderType;
+    content: string;
+}
+
+
 export interface BookItem {
     description: string;
     bookId: number;
