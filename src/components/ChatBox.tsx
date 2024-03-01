@@ -31,7 +31,7 @@ export default function ChatPanel() {
     }
   };
 
-  const submit = (e) => {
+  const submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputBoxContent.length === 0) {
       return;
