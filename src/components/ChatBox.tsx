@@ -16,7 +16,7 @@ export default function App() {
   if (el) {
     el.scrollTop = el.scrollHeight;
   }
-  const submit = (e) => {
+  const submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (message.length === 0) {
       return;
@@ -25,11 +25,11 @@ export default function App() {
     setMessages((allMessages) => [...allMessages, message]);
   };
 
-  const appendMessage = (v) => {
-    let currentMsg = message;
-    currentMsg += v;
-    setMessage(currentMsg);
-  };
+  // const appendMessage = (v) => {
+  //   let currentMsg = message;
+  //   currentMsg += v;
+  //   setMessage(currentMsg);
+  // };
 
   useEffect(() => {
     setMessage("");
@@ -50,18 +50,6 @@ export default function App() {
             <Typewriter text={welcomeMessage} loop={false} cursor={false} />
           </span>
         </li>
-        {/* <li className="my-message">
-          <span>FF test1</span>
-        </li>
-        <li>
-          <span>FF test1 bababa</span>
-        </li>
-        <li className="my-message">
-          <span>babab die??</span>
-        </li>
-        <li>
-          <span>FF test2</span>
-        </li> */}
         {messages.map((message, index) => (
           <li className="my-message" key={index}>
             <span>{message}</span>
