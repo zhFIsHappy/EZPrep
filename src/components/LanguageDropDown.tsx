@@ -4,7 +4,7 @@ import languages from "../assets/static/language";
 import NativeSelect from "@mui/material/NativeSelect";
 function LanguageDropDown({ setLanguageChoice }: any) {
   const getInitialState = () => {
-    const value = "apex";
+    const value = languages[0];
     return value;
   };
   const handleChange = (e: any) => {

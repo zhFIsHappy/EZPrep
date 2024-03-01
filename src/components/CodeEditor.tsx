@@ -1,24 +1,39 @@
-"use client";
+// "use client";
 import "../assets/css/editor.css";
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useContext} from "react";
 import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
 import Button from "@mui/material/Button";
-import Axios from "axios";
+import axios from "axios";
+import {MessagesContext} from "../contexts/MessagesContext";
+import {SenderType} from "../types";
+import {MessageTypes} from "../reducers/MessagesReducer";
+import language from "../assets/static/language";
 function CodeEditor() {
-  const [languageChoice, setLanguageChoice] = useState("apex");
+  const [languageChoice, setLanguageChoice] = useState(language[0]);
   const editorRef = useRef(null as any);
+  const {dispatch} = useContext(MessagesContext)
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
   }
   function submitValue() {
     console.log(languageChoice);
-    Axios.post("http://0.0.0.0:8080/api/submit", {
+    // Can mock reply in developing test
+    // dispatch({
+    //   type: MessageTypes.RECEIVE,
+    //   content: "test msg"
+    // })
+    // TODO: Extract network request into service
+    axios.post("http://0.0.0.0:8080/api/submit", {
       problem_id: -1,
       code: editorRef.current?.getValue(),
       language: languageChoice,
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
+      dispatch({
+        type: MessageTypes.RECEIVE,
+        content: response.data.ai_response
+      })
     });
   }
   return (

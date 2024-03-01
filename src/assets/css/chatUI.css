@@ -48,6 +48,11 @@ button {
       justify-content: flex-end;
     }
 
+    &.ai-message {
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
     &.my-message span {
       /* background-color: #6d8fe8; */
     }
@@ -57,9 +62,9 @@ button {
       /* border-radius: 28px; */
       /* color: #fff; */
       /* display: inline-block; */
-      font-size: 10px;
+      font-size: 14px;
       /* padding: 8px 15px; */
-      /* max-width: 80%; */
+      max-width: 80%;
     }
   }
 }
