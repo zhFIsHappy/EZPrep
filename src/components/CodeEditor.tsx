@@ -1,21 +1,53 @@
 // "use client";
 import "../assets/css/editor.css";
-import React, {useState, useRef, useContext} from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
 import Button from "@mui/material/Button";
-import axios from "axios";
-import {MessagesContext} from "../contexts/MessagesContext";
-import {SenderType} from "../types";
-import {MessageTypes} from "../reducers/MessagesReducer";
+import axios, { AxiosError } from "axios";
+import { MessagesContext } from "../contexts/MessagesContext";
+import { MessageTypes } from "../reducers/MessagesReducer";
 import language from "../assets/static/language";
+
+type ProblemInfo = {
+  problem_id: number;
+  problem_statement: string;
+};
+type ServerError = {
+  errorMessage: string;
+  // errorNumber: number;
+};
 function CodeEditor() {
   const [languageChoice, setLanguageChoice] = useState(language[0]);
+  const [problemInfo, setProblemInfo] = useState<ProblemInfo | null>(null);
   const editorRef = useRef(null as any);
-  const {dispatch} = useContext(MessagesContext)
+  const { dispatch } = useContext(MessagesContext);
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
   }
+
+  const getProblemInfo = async () => {
+    try {
+      const response = await axios.get<ProblemInfo | ServerError>(
+        "http://0.0.0.0:8080/api/get-problem-info"
+      );
+
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const ServerErrors = error as AxiosError<ServerError>;
+        if (ServerErrors && ServerErrors.response) {
+          console.log(ServerErrors.response.data);
+          return ServerErrors.response.data;
+        }
+      }
+      // console.log("somethings went wrong!");
+      return { errorMessage: "We cannot get problem statement" };
+    }
+  };
+  getProblemInfo();
+
   function submitValue() {
     console.log(languageChoice);
     // Can mock reply in developing test
@@ -24,18 +56,34 @@ function CodeEditor() {
     //   content: "test msg"
     // })
     // TODO: Extract network request into service
-    axios.post("http://0.0.0.0:8080/api/submit", {
-      problem_id: -1,
-      code: editorRef.current?.getValue(),
-      language: languageChoice,
-    }).then((response) => {
-      // console.log(response);
-      dispatch({
-        type: MessageTypes.RECEIVE,
-        content: response.data.ai_response
+    // problem_id
+    // problem_statement
+
+    // submit code editor value
+    axios
+      .post("http://0.0.0.0:8080/api/submit", {
+        problem_id: -1,
+        code: editorRef.current?.getValue(),
+        language: languageChoice,
       })
-    });
+      .then((response) => {
+        // console.log(response);
+        dispatch({
+          type: MessageTypes.RECEIVE,
+          content: response.data.ai_response,
+        });
+      });
   }
+  useEffect(() => {
+    (async function () {
+      try {
+        const problem_info = await getProblemInfo();
+        if ("problem_statement" in problem_info) {
+          return setProblemInfo(problem_info);
+        }
+      } catch (error) {}
+    })();
+  }, []);
   return (
     <div className="editor-wrapper">
       <div className="editor-layout-left-right">
@@ -43,7 +91,7 @@ function CodeEditor() {
         <Editor
           height="88%"
           language={languageChoice}
-          defaultValue="// Here's the playground you can start to code"
+          defaultValue={problemInfo?.problem_statement}
           theme="vs-dark"
           onMount={handleEditorDidMount}
           options={{
