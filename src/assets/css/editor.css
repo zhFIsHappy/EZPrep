@@ -1,2 +1,11 @@
 .editor-wrapper {
+  height: 100%;
+  width: 100%;
+}
+.editor-layout-left-right {
+  height: 100%;
+}
+button {
+  margin-left: auto;
+  margin-right: 0;
 }

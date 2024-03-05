@@ -1,13 +1,20 @@
 import React from "react";
-import Editor from "../components/Editor";
+import CodeEditor from "../components/CodeEditor";
 import "../assets/css/interview.css";
-
+import ChatBox from "../components/ChatBox";
+import {InterviewContextProvider} from "../contexts/MessagesContext";
 function Interview() {
   return (
-    <div className="interview">
-      <h1>Interview</h1>
-      <Editor />
-    </div>
+    <InterviewContextProvider>
+      <div className="interview-layout">
+        <div className="interview-container">
+          <CodeEditor />
+        </div>
+        <div className="interview-container">
+          <ChatBox />
+        </div>
+      </div>
+    </InterviewContextProvider>
   );
 }
 

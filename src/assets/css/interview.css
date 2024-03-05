@@ -1,9 +1,20 @@
-.interview {
+.interview-container {
+  border-left: 1px solid black;
+  flex: 1; /* additionally, equal width */
+  padding: 0.5em;
+  border: solid;
+}
+.code-editor {
+  display: table-cell;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+
   background-color: #262626;
   width: 50%;
+}
+.interview-layout {
+  display: flex;
+  height: 100vh;
 }
