@@ -61,9 +61,20 @@ function CodeEditor() {
   return (
     <div className="editor-wrapper">
       <div className="editor-layout-left-right">
-        <LanguageDropDown setLanguageChoice={setLanguageChoice} />
+        <div className="editor-layout-left-top">
+          <LanguageDropDown setLanguageChoice={setLanguageChoice} />
+          <Button
+            variant="contained"
+            onClick={submitValue}
+            // style={{ float: "right" }}
+            type="button"
+          >
+            Submit
+          </Button>
+        </div>
+
         <Editor
-          height="88%"
+          height="94%"
           language={languageChoice}
           defaultValue={problemInfo?.problem_statement}
           theme="vs-dark"
@@ -74,14 +85,6 @@ function CodeEditor() {
             },
           }}
         />
-        <Button
-          variant="contained"
-          onClick={submitValue}
-          style={{ float: "right" }}
-          type="button"
-        >
-          Submit
-        </Button>
       </div>
     </div>
   );
