@@ -1,3 +1,9 @@
 body {
   margin: 0;
 }
+.header-container {
+  height: 5vh;
+}
+.footer-container {
+  height: 5vh;
+}
