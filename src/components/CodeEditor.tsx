@@ -8,15 +8,9 @@ import axios, { AxiosError } from "axios";
 import { MessagesContext } from "../contexts/MessagesContext";
 import { MessageTypes } from "../reducers/MessagesReducer";
 import language from "../assets/static/language";
+import getProblemInfo from "../apis/CodeEditorAPI";
+import { ProblemInfo } from "../reducers/ProblemInfo";
 
-type ProblemInfo = {
-  problem_id: number;
-  problem_statement: string;
-};
-type ServerError = {
-  errorMessage: string;
-  // errorNumber: number;
-};
 function CodeEditor() {
   const [languageChoice, setLanguageChoice] = useState(language[0]);
   const [problemInfo, setProblemInfo] = useState<ProblemInfo | null>(null);
@@ -26,26 +20,6 @@ function CodeEditor() {
     editorRef.current = editor;
   }
 
-  const getProblemInfo = async () => {
-    try {
-      const response = await axios.get<ProblemInfo | ServerError>(
-        "http://0.0.0.0:8080/api/get-problem-info"
-      );
-
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const ServerErrors = error as AxiosError<ServerError>;
-        if (ServerErrors && ServerErrors.response) {
-          console.log(ServerErrors.response.data);
-          return ServerErrors.response.data;
-        }
-      }
-      // console.log("somethings went wrong!");
-      return { errorMessage: "We cannot get problem statement" };
-    }
-  };
   getProblemInfo();
 
   function submitValue() {
