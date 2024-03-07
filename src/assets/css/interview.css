@@ -1,8 +1,22 @@
 .interview-container {
-  border-left: 1px solid black;
   flex: 1; /* additionally, equal width */
-  padding: 0.5em;
-  border: solid;
+  /* padding: 0.5em; */
+  border: 1px solid black;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+.interview-container:first-child {
+  border-left: none;
+}
+.interview-container-top {
+  flex: 1;
+  border-bottom: 1px solid black;
+}
+.interview-container-bottom {
+  flex: 1;
+  padding: 20px;
+  max-height: 50%;
 }
 .code-editor {
   display: table-cell;
@@ -16,5 +30,6 @@
 }
 .interview-layout {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
+  height: 90vh;
 }

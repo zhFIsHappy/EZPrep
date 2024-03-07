@@ -5,6 +5,12 @@
 .editor-layout-left-right {
   height: 100%;
 }
+.editor-layout-left-top {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  border-bottom: 1px solid black;
+}
 button {
   margin-left: auto;
   margin-right: 0;

@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 import "../assets/css/chatUI.css";
 import Typewriter from "react-ts-typewriter";
-import {ChatMessage, SenderType} from "../types";
-import {MessagesContext} from "../contexts/MessagesContext";
-import {MessageTypes} from "../reducers/MessagesReducer";
+import { ChatMessage, SenderType } from "../types";
+import { MessagesContext } from "../contexts/MessagesContext";
+import { MessageTypes } from "../reducers/MessagesReducer";
 import axios from "axios";
 
 export default function ChatPanel() {
@@ -19,7 +19,7 @@ export default function ChatPanel() {
   const inputRef = useRef<HTMLInputElement>(null);
   // const messagesEndRef = useRef(null);
   const el = document.getElementById("messages-container");
-  const { messages, dispatch} = useContext(MessagesContext);
+  const { messages, dispatch } = useContext(MessagesContext);
 
   if (el) {
     el.scrollTop = el.scrollHeight;
@@ -29,27 +29,29 @@ export default function ChatPanel() {
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
-  }
+  };
 
-  const submit = (e) => {
+  const submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputBoxContent.length === 0) {
       return;
     }
     dispatch({
       type: MessageTypes.SEND,
-      content: inputBoxContent
-    })
-    // TODO: Extract network request into service
-    axios.post("http://0.0.0.0:8080/api/chat", {
-      message: inputBoxContent
-    }).then((response) => {
-      // console.log(response);
-      dispatch({
-        type: MessageTypes.RECEIVE,
-        content: response.data.response
-      })
+      content: inputBoxContent,
     });
+    // TODO: Extract network request into service
+    axios
+      .post("http://0.0.0.0:8080/api/chat", {
+        message: inputBoxContent,
+      })
+      .then((response) => {
+        // console.log(response);
+        dispatch({
+          type: MessageTypes.RECEIVE,
+          content: response.data.response,
+        });
+      });
     clearInput();
     // setMessages([...messages, message]);
   };
@@ -71,23 +73,36 @@ export default function ChatPanel() {
   const messageItemDOM = (message: ChatMessage, index: number) => {
     switch (message.sender) {
       case SenderType.SELF:
-        return <li className="my-message" key={index}><span>{message.content}</span></li>
+        return (
+          <li className="my-message" key={index}>
+            <span>{message.content}</span>
+          </li>
+        );
       case SenderType.AI:
-        return <li className="ai-message" key={index}><span>
-          <Typewriter text={message.content} loop={false} cursor={false} onFinished={scrollToBottom}/>
-        </span></li>
+        return (
+          <li className="ai-message" key={index}>
+            <span>
+              <Typewriter
+                text={message.content}
+                loop={false}
+                cursor={false}
+                onFinished={scrollToBottom}
+              />
+            </span>
+          </li>
+        );
       default:
-        return <div/>
+        return <div />;
     }
-  }
+  };
 
   return (
     <div className="App">
       {/* <div */}
       <ul id="messages-container" className="messages">
-        {messages.map((message: ChatMessage, index: number) => (
+        {messages.map((message: ChatMessage, index: number) =>
           messageItemDOM(message, index)
-        ))}
+        )}
       </ul>
       <form className="chat-form" onSubmit={submit}>
         <div className="chat-input-container">
