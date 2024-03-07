@@ -10,6 +10,7 @@ import { MessageTypes } from "../reducers/MessagesReducer";
 import language from "../assets/static/language";
 import getProblemInfo from "../apis/CodeEditorAPI";
 import { ProblemInfo } from "../reducers/ProblemInfo";
+import { commentProblemStatement } from "../utils/CodeFormatter";
 
 function CodeEditor() {
   const [languageChoice, setLanguageChoice] = useState(language[0]);
@@ -20,15 +21,7 @@ function CodeEditor() {
     editorRef.current = editor;
   }
 
-  getProblemInfo();
-
   function submitValue() {
-    console.log(languageChoice);
-    // Can mock reply in developing test
-    // dispatch({
-    //   type: MessageTypes.RECEIVE,
-    //   content: "test msg"
-    // })
     // TODO: Extract network request into service
     // problem_id
     // problem_statement
@@ -41,13 +34,13 @@ function CodeEditor() {
         language: languageChoice,
       })
       .then((response) => {
-        // console.log(response);
         dispatch({
           type: MessageTypes.RECEIVE,
           content: response.data.ai_response,
         });
       });
   }
+
   useEffect(() => {
     (async function () {
       try {
@@ -58,6 +51,7 @@ function CodeEditor() {
       } catch (error) {}
     })();
   }, []);
+
   return (
     <div className="editor-wrapper">
       <div className="editor-layout-left-right">
@@ -76,7 +70,7 @@ function CodeEditor() {
         <Editor
           height="94%"
           language={languageChoice}
-          defaultValue={problemInfo?.problem_statement}
+          value={commentProblemStatement(problemInfo?.problem_statement, languageChoice)}
           theme="vs-dark"
           onMount={handleEditorDidMount}
           options={{
