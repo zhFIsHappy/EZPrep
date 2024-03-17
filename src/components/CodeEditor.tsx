@@ -35,7 +35,7 @@ function CodeEditor() {
 
     // submit code editor value
     axios
-      .post("http://0.0.0.0:8080/api/submit", {
+      .post("https://ezprep.discovery.cs.vt.edu/api/submit", {
         problem_id: -1,
         code: editorRef.current?.getValue(),
         language: languageChoice,

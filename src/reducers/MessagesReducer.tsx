@@ -1,27 +1,36 @@
-import {ChatMessage, SenderType} from "../types";
+import { ChatMessage, SenderType } from "../types";
 
 export enum MessageTypes {
   SEND,
-  RECEIVE
+  RECEIVE,
 }
 
 export type MessageActions = {
   type: MessageTypes;
   content: string;
-}
-export function messagesReducer(messages: ChatMessage[], action: MessageActions) {
+};
+export function messagesReducer(
+  messages: ChatMessage[],
+  action: MessageActions
+) {
   switch (action.type) {
     case MessageTypes.RECEIVE: {
-      return [...messages, {
-        sender: SenderType.AI,
-        content: action.content,
-      }];
+      return [
+        ...messages,
+        {
+          sender: SenderType.AI,
+          content: action.content,
+        },
+      ];
     }
     case MessageTypes.SEND: {
-      return [...messages, {
-        sender: SenderType.SELF,
-        content: action.content,
-      }];
+      return [
+        ...messages,
+        {
+          sender: SenderType.SELF,
+          content: action.content,
+        },
+      ];
     }
     // case 'changed': {
     //   return messages.map(t => {
@@ -36,7 +45,7 @@ export function messagesReducer(messages: ChatMessage[], action: MessageActions)
     //   return messages.filter(t => t.id !== action.id);
     // }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error("Unknown action: " + action.type);
     }
   }
 }
