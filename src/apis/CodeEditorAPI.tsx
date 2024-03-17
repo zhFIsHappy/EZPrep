@@ -4,7 +4,7 @@ import { ServerError } from "../reducers/ServerError";
 const getProblemInfo = async () => {
   try {
     const response = await axios.get<ProblemInfo | ServerError>(
-      "https://ezprep.discovery.cs.vt.edu/api/get-problem-info"
+      "https://ezprep.discovery.cs.vt.edu/api/random-problem/easy"
     );
 
     console.log(response.data);
