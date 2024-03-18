@@ -42,7 +42,7 @@ export default function ChatPanel() {
     });
     // TODO: Extract network request into service
     axios
-      .post("http://0.0.0.0:8080/api/chat", {
+      .post("https://ezprep.discovery.cs.vt.edu/api/chat", {
         message: inputBoxContent,
       })
       .then((response) => {
