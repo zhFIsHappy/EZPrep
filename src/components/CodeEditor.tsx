@@ -67,34 +67,6 @@ function CodeEditor() {
           timestamp: showTime,
         })
         .then((response) => {
-          dispatch({
-            type: MessageTypes.RECEIVE,
-            content: response.data.ai_response,
-          });
-        });
-      console.log("timestamp");
-    }
-    postUpdatedValueBackend();
-    const interval = setInterval(() => postUpdatedValueBackend(), 300000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  useEffect(() => {
-    function postUpdatedValueBackend() {
-      const date = new Date();
-      const showTime =
-        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-      // axios post updated value back to backend
-      axios
-        .post("https://ezprep.discovery.cs.vt.edu/api/update-code-value", {
-          problem_id: -1,
-          code: editorRef.current?.getValue(),
-          language: languageChoice,
-          timestamp: showTime,
-        })
-        .then((response) => {
           messagesDispatch({
             type: MessageTypes.RECEIVE,
             content: response.data.ai_response,
