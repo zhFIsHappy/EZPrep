@@ -14,7 +14,7 @@ const App: React.FC<AppProps> = ({ extra }) => {
   // Your existing App component code...
   return (
     <Router>
-      <AppHeader />
+      {/*<AppHeader />*/}
       <Routes>
         <Route path="/" element={<Interview />} />
         <Route path="/interview" element={<Interview />} />
@@ -24,7 +24,7 @@ const App: React.FC<AppProps> = ({ extra }) => {
         />
       </Routes>
 
-      <AppFooter />
+      {/*<AppFooter />*/}
     </Router>
   );
 };

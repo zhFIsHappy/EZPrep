@@ -8,10 +8,17 @@
 .editor-layout-left-top {
   display: flex;
   justify-content: space-between;
-  height: 40px;
+  height: 50px;
   border-bottom: 1px solid black;
+  align-items: center;
 }
 button {
   margin-left: auto;
   margin-right: 0;
+}
+.editor-language-choose {
+  display: flex;
+}
+.editor-language-choose > p{
+  padding-left: 10px;
 }
