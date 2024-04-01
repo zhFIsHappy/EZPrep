@@ -1,25 +1,41 @@
-.interview-container {
-  flex: 1; /* additionally, equal width */
-  /* padding: 0.5em; */
-  border: 1px solid black;
-  border-right: none;
+.interview-header-container {
+  min-height: 42px;
+  max-height: 42px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(242,243,245,1);
+}
+.interview-main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow-y: hidden;
+}
+.interview-editor-container {
+  display: flex;
+  width: 50%;
+  min-width: 500px;
+}
+.interview-chat-container {
   display: flex;
   flex-direction: column;
+  min-width: 320px;
+  width: 50%;
 }
-.interview-container:first-child {
-  border-left: none;
-}
-.interview-container-top {
+.interview-chat-container-top {
   flex: 1;
   border-bottom: 1px solid black;
 }
-.interview-container-bottom {
+.interview-chat-container-bottom {
   flex: 1;
   padding: 20px;
   max-height: 50%;
 }
 .code-editor {
-  display: table-cell;
+  /*display: table-cell;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,6 +46,25 @@
 }
 .interview-layout {
   display: flex;
-  /* height: 100vh; */
-  height: 90vh;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  min-width: 900px;
+}
+
+
+.interview-timer-container {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  justify-content: space-between;
+  width: 100px;
+  height: 100%;
+}
+
+.interview-timer-container > p {
+  padding-left: 3px;
+  font-size: 15px;
+  font-family: monospace;
 }
