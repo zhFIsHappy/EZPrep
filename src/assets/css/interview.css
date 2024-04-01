@@ -31,7 +31,7 @@
 }
 .interview-chat-container-bottom {
   flex: 1;
-  padding: 20px;
+  padding: 10px 10px 5px 10px;
   max-height: 50%;
 }
 .code-editor {
