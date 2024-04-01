@@ -3,6 +3,7 @@ import AppHeader from "./pages/AppHeader";
 import AppFooter from "./pages/AppFooter";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserLogin } from "./pages/UserLogin";
 
 // Define the props type
 interface AppProps {
@@ -16,8 +17,9 @@ const App: React.FC<AppProps> = ({ extra }) => {
     <Router>
       {/*<AppHeader />*/}
       <Routes>
-        <Route path="/" element={<Interview />} />
+        {/*<Route path="/" element={<Interview />} />*/}
         <Route path="/interview" element={<Interview />} />
+        <Route path="/login" element={<UserLogin />} />
         <Route
           path="*"
           element={<div style={{ fontSize: "large" }}>Page Not Found</div>}
