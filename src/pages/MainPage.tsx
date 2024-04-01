@@ -2,10 +2,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function MainPage() {
+  const navigate = useNavigate();
+  function openPage() {
+    navigate("/register-page");
+  }
+
   return (
-    <h1>
+    <>
       <p>This is Main Page</p>
-    </h1>
+      <p>Try out our free AI-Powered Coding Interview</p>
+      <button onClick={openPage}>Click Me</button>
+    </>
   );
 }
 

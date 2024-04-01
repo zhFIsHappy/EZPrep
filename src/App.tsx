@@ -1,10 +1,11 @@
 import Interview from "./pages/Interview";
 import AppHeader from "./pages/AppHeader";
 import AppFooter from "./pages/AppFooter";
-import Preference from "./pages/Preference";
+import Preference from "./components/Preference";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
+import MainPage from "./pages/MainPage";
 
 // Define the props type
 interface AppProps {
@@ -18,12 +19,15 @@ const App: React.FC<AppProps> = ({ extra }) => {
     <Router>
       {/*<AppHeader />*/}
       <Routes>
-        <Route path="/" element={<RegisterPage />} />
-        <Route path="/interview" element={<Interview />} />
-        <Route
-          path="*"
-          element={<div style={{ fontSize: "large" }}>Page Not Found</div>}
-        />
+        <Route path="/">
+          <Route path="/" element={<MainPage />} />
+          <Route path="/interview" element={<Interview />} />
+          <Route
+            path="*"
+            element={<div style={{ fontSize: "large" }}>Page Not Found</div>}
+          />
+          <Route Component={RegisterPage} path="register-page" />
+        </Route>
       </Routes>
 
       {/*<AppFooter />*/}

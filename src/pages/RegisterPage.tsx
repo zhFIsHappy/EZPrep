@@ -1,6 +1,6 @@
-import Register from "./UserRegister";
-import Preference from "./Preference";
-import SystemSuggest from "./SystemSuggest";
+import Register from "../components/UserRegister";
+import Preference from "../components/Preference";
+import SystemSuggest from "../components/SystemSuggest";
 // import "./App.css";
 import React, { useState } from "react";
 import MultiStepProgressBar from "../components/MultiStepProgressBar";
