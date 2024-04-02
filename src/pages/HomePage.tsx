@@ -5,10 +5,10 @@ import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import Button from "@mui/material/Button";
 
-function MainPage() {
+function HomePage() {
   const navigate = useNavigate();
   function openPage() {
-    navigate("/register-page");
+    navigate("/login");
   }
 
   return (
@@ -37,4 +37,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default HomePage;
