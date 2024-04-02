@@ -5,7 +5,7 @@ import Preference from "./components/Preference";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/HomePage";
 
 // Define the props type
 interface AppProps {
