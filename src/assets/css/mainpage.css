@@ -1,0 +1,15 @@
+h1 {
+  text-align: center;
+  margin-top: 80px;
+  font-weight: 500;
+}
+
+h4 {
+  text-align: center;
+  font-weight: 200;
+}
+
+.slogan-button {
+  text-align: center;
+  /* border: 1px solid; */
+}

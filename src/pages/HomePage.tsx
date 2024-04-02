@@ -1,5 +1,8 @@
 import React from "react";
+import "../assets/css/mainpage.css";
 import { useNavigate } from "react-router-dom";
+import AppHeader from "./AppHeader";
+import AppFooter from "./AppFooter";
 import Button from "@mui/material/Button";
 
 function HomePage() {
@@ -9,16 +12,28 @@ function HomePage() {
   }
 
   return (
-    <>
-      <p>This is Main Page</p>
-      <p>Try out our free AI-Powered Coding Interview</p>
-      <Button
-        onClick={openPage}
-      >
-        Try now!
-      </Button>
-      <button onClick={openPage}>Click Me</button>
-    </>
+    <div>
+      <AppHeader />
+      <div className="slogan-button">
+        <h1>Supercharge your coding interview success with AI</h1>
+        <h4>
+          Refine your algorithm skills in immersive interview sessions, receive
+          instant feedback whenever you're stuck, and elevate your coding
+          proficiency with ease!
+        </h4>
+        <Button variant="contained" onClick={openPage} id="call-to-action">
+          Try it out for Free
+        </Button>
+        <h1>Supercharge your coding interview success with AI</h1>
+        <h4>
+          Refine your algorithm skills in immersive interview sessions, receive
+          instant feedback whenever you're stuck, and elevate your coding
+          proficiency with ease!
+        </h4>
+      </div>
+
+      <AppFooter />
+    </div>
   );
 }
 
