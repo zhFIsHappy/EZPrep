@@ -1,0 +1,52 @@
+.register-page-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  /*justify-content: center;*/
+  background-color: #f0f4f9;
+}
+
+.register-page-header-area {
+  display: flex;
+  padding-top: 50px;
+  width: 100%;
+}
+
+.register-form-area {
+  display: flex;
+  width: 700px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-form-area > h1 {
+  padding-top: 30px;
+}
+
+.user-register-form {
+  padding-top: 30px;
+  display: flex;
+}
+
+.register-form-button-area {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.register-preference {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm-preference {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm-preference-question-area {
+
+}
