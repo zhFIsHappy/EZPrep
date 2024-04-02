@@ -1,9 +1,16 @@
 import React from "react";
 import "../assets/css/login.css";
 import Box from "@mui/material/Box";
-import { Stack, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 export function UserLogin() {
+  const navigate = useNavigate();
+
+  const createAccountNavi = () => {
+    navigate("/register");
+  }
+
   return (
     <div className="login-page-layout">
       <div className="user-login-container">
@@ -31,7 +38,13 @@ export function UserLogin() {
           </Box>
         </div>
         <div className="login-form-button-area">
-          <Button variant="text" style={{ textTransform: "none" }}>Create Account</Button>
+          <Button
+            variant="text"
+            style={{ textTransform: "none" }}
+            onClick={ createAccountNavi }
+          >
+            Create Account
+          </Button>
           <Button variant="contained" style={{ textTransform: "none" }}>Login</Button>
         </div>
       </div>

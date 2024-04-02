@@ -9,6 +9,37 @@ export interface ChatMessage {
     content: string;
 }
 
+export interface RegisterForm {
+    username: string;
+    email: string;
+    password: string;
+    repeatPassword: string;
+    salt: string;
+
+    // constructor() {
+    //     this.username = "";
+    //     this.email = "";
+    //     this.password = "";
+    //     this.salt = "";
+    // }
+}
+
+export interface PreferenceItem {
+    question: string;
+    options: string[];
+}
+
+export interface SuggestionItem {
+    suggestion: string;
+    value: any;
+}
+
+export interface SelectedPreference {
+    difficulty: string;
+    language: string;
+    time: number;
+}
+
 
 export interface BookItem {
     description: string;
