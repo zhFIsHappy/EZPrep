@@ -12,6 +12,7 @@ interface AppProps {
   extra?: React.ReactNode; // `extra` can be any React node or undefined
 }
 //RegisterPage
+//RegisterPage
 // Modify the App component to accept its props
 const App: React.FC<AppProps> = ({ extra }) => {
   // Your existing App component code...
