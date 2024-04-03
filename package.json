@@ -30,7 +30,8 @@
     "react-step-progress-bar": "^1.0.3",
     "react-ts-typewriter": "^0.1.8-b",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
