@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/css/MultiStepProgressBar.css";
+import "../assets/css/multistepprogressbar.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
 const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
@@ -20,7 +20,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("1")}
+            // onClick={() => onPageNumberClick("1")}
           >
             {index + 1}
           </div>
@@ -30,7 +30,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("2")}
+            // onClick={() => onPageNumberClick("2")}
           >
             {index + 1}
           </div>
@@ -40,7 +40,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("3")}
+            // onClick={() => onPageNumberClick("3")}
           >
             {index + 1}
           </div>

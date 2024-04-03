@@ -27,7 +27,6 @@ const Register = ({ onButtonClick }) => {
     // axios.post()
     // TODO: make API request to register after backend finishing API building
     // console.log(registerForm);
-    setProcessing(true);
     e.preventDefault();
     const formData = {
       name: registerForm.username,
@@ -37,6 +36,7 @@ const Register = ({ onButtonClick }) => {
     };
     try {
       await registerSchema.validate(formData, { abortEarly: false });
+      onButtonClick("pagetwo");
       console.log("Form Submitted", formData);
     } catch (error: any) {
       const newErrors = {
@@ -80,7 +80,7 @@ const Register = ({ onButtonClick }) => {
           justifyContent="center"
         >
           <TextField
-            error={errors.name.length != 0}
+            error={errors.name.length !== 0}
             name="username"
             label="User Name"
             type="text"
@@ -88,9 +88,8 @@ const Register = ({ onButtonClick }) => {
             onChange={handleFormModify}
             helperText={errors.name}
           />
-          {errors.name && <Alert severity="error">{errors.name}</Alert>}
           <TextField
-            error={errors.email.length != 0}
+            error={errors.email.length !== 0}
             name="email"
             label="Email"
             type="email"
@@ -100,7 +99,7 @@ const Register = ({ onButtonClick }) => {
           />
 
           <TextField
-            error={errors.password.length != 0}
+            error={errors.password.length !== 0}
             name="password"
             label="Password"
             type="password"
@@ -110,7 +109,7 @@ const Register = ({ onButtonClick }) => {
           />
 
           <TextField
-            error={errors.confirmPassword.length != 0}
+            error={errors.confirmPassword.length !== 0}
             name="repeatPassword"
             label="Confirm Password"
             type="password"
