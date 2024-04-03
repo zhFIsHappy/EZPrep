@@ -8,14 +8,21 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { RegisterContext } from "../contexts/RegisterContext";
 import { registerSchema } from "../validations/RegisterValidations";
+import {MessageTypes} from "../reducers/MessagesReducer";
+import md5 from "md5";
+
 const Register = ({ onButtonClick }) => {
+  const { registerForm, modifyForm, clearForm } = useContext(RegisterContext);
   const [processing, setProcessing] = useState(false);
-  const { registerForm, modifyForm } = useContext(RegisterContext);
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
+  });
+  const [serverResponse, setServerResponse] = useState({
+    success: -1,
+    message: "",
   });
   const handleFormModify = (e: any) => {
     const { name, value } = e.target;
@@ -35,8 +42,45 @@ const Register = ({ onButtonClick }) => {
       confirmPassword: registerForm.repeatPassword,
     };
     try {
+
       await registerSchema.validate(formData, { abortEarly: false });
-      onButtonClick("pagetwo");
+      setProcessing(true);
+
+      axios
+        .post("https://ezprep.discovery.cs.vt.edu/api/register", {
+          user_name: formData.name,
+          email: formData.email,
+          password: md5(formData.password),
+        })
+        .then((response) => {
+          setServerResponse({
+            success: 1,
+            message: "Create account successful",
+          });
+          setTimeout(() => {
+            clearForm();
+            onButtonClick("pagetwo");
+          }, 1200);
+        })
+        .catch((error) => {
+          setServerResponse({
+            success: 0,
+            message: error.response?.data?.error,
+          });
+          // console.log('err', error);
+          // setServerResponse(error.response?.data?.message);
+        })
+        .finally(() => {
+          setProcessing(false);
+          setTimeout(() => {
+            setServerResponse({
+              success: -1,
+              message: "",
+            })
+          }, 1500);
+        });
+
+      // onButtonClick("pagetwo");
       console.log("Form Submitted", formData);
     } catch (error: any) {
       const newErrors = {
@@ -131,6 +175,14 @@ const Register = ({ onButtonClick }) => {
           Create Account
         </LoadingButton>
       </div>
+      {
+        serverResponse.success !== -1 &&
+        <div style={{ marginTop: "40px" }}>
+            <Alert variant="filled" severity={serverResponse.success === 1? "success" : "error"}>
+                <div>{serverResponse.message}</div>
+            </Alert>
+        </div>
+      }
     </>
   );
 };

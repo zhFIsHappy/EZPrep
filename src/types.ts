@@ -27,6 +27,7 @@ export interface RegisterForm {
 export interface PreferenceItem {
     question: string;
     options: string[];
+    name: string;
 }
 
 export interface SuggestionItem {
@@ -35,6 +36,8 @@ export interface SuggestionItem {
 }
 
 export interface SelectedPreference {
+    codingExperience: string;
+    algoExperience: string;
     difficulty: string;
     language: string;
     time: number;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { PreferenceItem } from "../types";
 import { preferences } from "../assets/static/preferences";
@@ -8,28 +8,61 @@ import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import axios from "axios";
+import { RegisterContext } from "../contexts/RegisterContext";
+import { preferenceSchema } from "../validations/PreferenceValidation";
 
 const PreferenceSettings = ({ onButtonClick }) => {
-  const [answeredCounter, setAnsweredCounter] = useState<number>(0);
-  const submitPreference = () => {
-    if (preferences.length === answeredCounter) {
-      onButtonClick("pagethree");
-    } else {
-      console.log("You entered " + answeredCounter);
-      console.log("It should be " + preferences.length);
+  const [processing, setProcessing] = useState(false);
 
-      alert("You must select all code preference to proceed!");
+  const { selectedPreference, modifyPreference } = useContext(RegisterContext);
+
+  const submitPreference = async (e) => {
+    try {
+      await preferenceSchema.validate(selectedPreference, { abortEarly: false });
+
+      setProcessing(true);
+      const progExp = selectedPreference.codingExperience;
+      const algoExp = selectedPreference.algoExperience;
+      console.log(progExp, algoExp);
+
+      axios
+        .post("https://ezprep.discovery.cs.vt.edu/api/suggestion", {
+          prog_exp: preferences[0].options.findIndex(value => value === progExp) + 1,
+          algo_exp: preferences[1].options.findIndex(value => value === algoExp) + 1
+        })
+        .then((response) => {
+          console.log(response.data);
+          modifyPreference("time", response.data.time - 1);
+          modifyPreference("time", response.data.time);
+          modifyPreference("difficulty", response.data.difficulty);
+
+          setProcessing(false);
+        })
+        .catch((error) => {
+          console.log('err', error);
+          // setServerResponse(error.response?.data?.message);
+        })
+        .finally(() => {
+          setProcessing(false);
+          console.log(selectedPreference);
+          onButtonClick("pagethree");
+        });
+    } catch (e) {
+      console.log('err1', e);
     }
   };
+
   const handleItemSelection = (e) => {
-    let obj = JSON.parse(e.target.value);
-    if (obj.length !== 0) setAnsweredCounter(answeredCounter + 1);
+    const { name, value } = e.target;
+    modifyPreference(name, value);
   };
+
   return (
     <>
       <h1>Step 2: Choose coding preference</h1>
       <div className="register-preference">
-        {preferences.map((preference) => (
+        {preferences.map((preference, index) => (
           <div>
             <div className="register-preference-question-area">
               <h3>{preference.question}</h3>
@@ -37,9 +70,13 @@ const PreferenceSettings = ({ onButtonClick }) => {
             <div className="register-preference-answer-area">
               <Box sx={{ width: "35ch" }}>
                 <FormControl fullWidth>
-                  <Select onChange={handleItemSelection}>
-                    {preference.options.map((option, index) => (
-                      <MenuItem value={JSON.stringify(option)} key={index}>
+                  <Select
+                    name={preference.name}
+                    onChange={handleItemSelection}
+                    value={selectedPreference[preference.name]}
+                  >
+                    {preference.options.map(option => (
+                      <MenuItem value={option}>
                         {option}
                       </MenuItem>
                     ))}
@@ -55,6 +92,7 @@ const PreferenceSettings = ({ onButtonClick }) => {
           variant="contained"
           style={{ textTransform: "none" }}
           loadingPosition="end"
+          loading={processing}
           endIcon={<NavigateNextIcon />}
           onClick={submitPreference}
         >

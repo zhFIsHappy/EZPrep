@@ -7,17 +7,23 @@ import Button from "@mui/material/Button";
 import axios, { AxiosError } from "axios";
 import { MessagesContext, TimerContext } from "../contexts/InterviewContext";
 import { MessageTypes } from "../reducers/MessagesReducer";
-import language from "../assets/static/language";
+import { languages, rMapLanguages } from "../assets/static/language";
 import getProblemInfo from "../apis/CodeEditorAPI";
 import { ProblemInfo } from "../reducers/ProblemInfo";
 import { commentProblemStatement } from "../utils/CodeFormatter";
+import { RegisterContext } from "../contexts/RegisterContext";
 
 function CodeEditor() {
-  const [languageChoice, setLanguageChoice] = useState("c");
-  const [problemInfo, setProblemInfo] = useState<ProblemInfo | null>(null);
-  const editorRef = useRef(null as any);
   const { messagesDispatch } = useContext(MessagesContext);
   const { onModifyCode } = useContext(TimerContext);
+  const { selectedPreference } = useContext(RegisterContext);
+
+  const [languageChoice, setLanguageChoice] = useState(
+    rMapLanguages[selectedPreference.language]??"c"
+  );
+  const [problemInfo, setProblemInfo] = useState<ProblemInfo | null>(null);
+  const editorRef = useRef(null as any);
+
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
   }
@@ -45,12 +51,13 @@ function CodeEditor() {
   useEffect(() => {
     (async function () {
       try {
-        const problem_info = await getProblemInfo();
+        const problem_info = await getProblemInfo(selectedPreference.difficulty.toLowerCase()??"easy");
         if ("problem_statement" in problem_info) {
           return setProblemInfo(problem_info);
         }
       } catch (error) {}
     })();
+    setLanguageChoice(rMapLanguages[selectedPreference.language]??"c");
   }, []);
 
   useEffect(() => {
@@ -59,6 +66,7 @@ function CodeEditor() {
       const showTime =
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       // axios post updated value back to backend
+      // TODO: Impl this endpoint in backend
       axios
         .post("https://ezprep.discovery.cs.vt.edu/api/update-code-value", {
           problem_id: -1,
@@ -74,7 +82,7 @@ function CodeEditor() {
         });
       console.log("timestamp");
     }
-    postUpdatedValueBackend();
+    // postUpdatedValueBackend();
     const interval = setInterval(() => postUpdatedValueBackend(), 300000);
     return () => {
       clearInterval(interval);

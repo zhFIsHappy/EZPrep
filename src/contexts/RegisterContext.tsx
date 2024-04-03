@@ -11,21 +11,27 @@ const initialRegisterForm: RegisterForm = {
 };
 
 const initialPreference: SelectedPreference = {
+  codingExperience: "",
+  algoExperience: "",
   difficulty: "Easy",
-  language: "C",
+  language: "",
   time: 20,
 };
 
 export const RegisterContext = createContext<{
   registerForm: RegisterForm;
   modifyForm: (name: any, value: any) => void;
+  clearForm: () => void;
   selectedPreference: SelectedPreference;
   modifyPreference: (name: any, value: any) => void;
+  preferenceTime: number;
 }>({
   registerForm: initialRegisterForm,
   modifyForm: (name: any, value: any) => {},
+  clearForm: () => {},
   selectedPreference: initialPreference,
   modifyPreference: (name: any, value: any) => {},
+  preferenceTime: 0,
 });
 
 RegisterContext.displayName = "RegisterContext";
@@ -35,6 +41,7 @@ export function RegisterContextProvider({children}: React.PropsWithChildren<{}>)
   // @ts-ignore
   const [registerForm, setRegisterForm] = useState<RegisterForm>(initialRegisterForm);
   const [selectedPreference, setSelectedPreference] = useState<SelectedPreference>(initialPreference);
+  const [preferenceTime, setPreferenceTime] = useState(0);
 
   const modifyForm = (name: any, value: any) => {
     setRegisterForm({ ...registerForm, [name]: value});
@@ -42,7 +49,9 @@ export function RegisterContextProvider({children}: React.PropsWithChildren<{}>)
 
   const modifyPreference = (name: any, value: any) => {
     if (name === "time") {
-      console.log("into", name, value);
+      value = Number(value);
+      console.log(value);
+      setPreferenceTime(value);
       if (value <= 0) {
         setSelectedPreference({ ...selectedPreference, [name]: 1});
       } else if (value > 60) {
@@ -53,15 +62,18 @@ export function RegisterContextProvider({children}: React.PropsWithChildren<{}>)
     } else {
       setSelectedPreference({ ...selectedPreference, [name]: value});
     }
+  }
 
+  const clearForm = () => {
+    setRegisterForm(initialRegisterForm);
   }
 
   // You can provide any other context values or functions you need here
   return (
     <>
       <RegisterContext.Provider value={{
-        registerForm, modifyForm,
-        selectedPreference, modifyPreference
+        registerForm, modifyForm, clearForm,
+        selectedPreference, modifyPreference, preferenceTime
       }}>
         {children}
       </RegisterContext.Provider>
