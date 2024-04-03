@@ -10,19 +10,22 @@
   position: fixed;
   top: 0px;
   z-index: 1000;
-}
-ul {
-  display: flex;
-}
-li {
-  padding: 0 20px;
 
-  list-style-type: none;
-  padding: 10px;
+  ul {
+    display: flex;
+  }
+  li {
+    padding: 0 20px;
+
+    list-style-type: none;
+    padding: 10px;
+  }
+  a {
+    text-decoration: none;
+  }
+
 }
-a {
-  text-decoration: none;
-}
+
 .navbar a {
   color: #fff;
   font: bold;

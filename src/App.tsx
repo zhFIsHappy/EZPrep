@@ -1,7 +1,4 @@
 import Interview from "./pages/Interview";
-import AppHeader from "./pages/AppHeader";
-import AppFooter from "./pages/AppFooter";
-import Preference from "./components/Preference";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
@@ -12,7 +9,6 @@ import { UserLogin } from "./pages/UserLogin";
 interface AppProps {
   extra?: React.ReactNode; // `extra` can be any React node or undefined
 }
-//RegisterPage
 //RegisterPage
 // Modify the App component to accept its props
 const App: React.FC<AppProps> = ({ extra }) => {

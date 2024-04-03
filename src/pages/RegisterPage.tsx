@@ -1,7 +1,6 @@
 import Register from "../components/UserRegister";
 import PreferenceSettings from "../components/PreferenceSettings";
 import ConfirmSuggestion from "../components/ConfirmSuggestion";
-// import "./App.css";
 import React, { useState } from "react";
 import MultiStepProgressBar from "../components/MultiStepProgressBar";
 import "../assets/css/register.css";
