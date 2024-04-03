@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/css/multistepprogressbar.css";
+import "../assets/css/MultiStepProgressBar.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
 const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
