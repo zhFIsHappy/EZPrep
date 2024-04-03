@@ -1,7 +1,6 @@
 import Interview from "./pages/Interview";
 import AppHeader from "./pages/AppHeader";
 import AppFooter from "./pages/AppFooter";
-import Preference from "./components/Preference";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
@@ -25,7 +24,7 @@ const App: React.FC<AppProps> = ({ extra }) => {
           <Route path="/" element={<HomePage />} />
           <Route path="/interview" element={<Interview />} />
           <Route path="/login" element={<UserLogin />} />
-          <Route path="/register" Component={ RegisterPage } />
+          <Route path="/register" Component={RegisterPage} />
           <Route
             path="*"
             element={<div style={{ fontSize: "large" }}>Page Not Found</div>}
