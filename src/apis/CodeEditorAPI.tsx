@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { ProblemInfo } from "../reducers/ProblemInfo";
 import { ServerError } from "../reducers/ServerError";
-const getProblemInfo = async () => {
+const getProblemInfo = async (difficulty: string) => {
   try {
     const response = await axios.get<ProblemInfo | ServerError>(
-      "https://ezprep.discovery.cs.vt.edu/api/random-problem/easy"
+      "https://ezprep.discovery.cs.vt.edu/api/random-problem/" + difficulty
     );
 
     console.log(response.data);

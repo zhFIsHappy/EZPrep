@@ -3,12 +3,12 @@ import Box from "@mui/material/Box";
 import {FormControl, TextField} from "@mui/material";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {SuggestionItem} from "../types";
 import LoadingButton from "@mui/lab/LoadingButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import {RegisterContext} from "../contexts/RegisterContext";
-import {useNavigate} from "react-router-dom";
+import { RegisterContext } from "../contexts/RegisterContext";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmSuggestion = ({ onButtonClick }) => {
 
@@ -18,11 +18,14 @@ const ConfirmSuggestion = ({ onButtonClick }) => {
     navigate("/interview");
   }
 
-  const { selectedPreference, modifyPreference } = useContext(RegisterContext);
+  const { selectedPreference, modifyPreference, preferenceTime } = useContext(RegisterContext);
+
+  useEffect(() => {
+    modifyPreference("time", preferenceTime);
+  }, []);
 
   function setPreference(e) {
     const { name, value } = e.target;
-    console.log(name, value);
     modifyPreference(name, value);
   }
 
@@ -32,6 +35,7 @@ const ConfirmSuggestion = ({ onButtonClick }) => {
         return (
           <TextField
             type="number"
+            label="minutes"
             name="time"
             value={selectedPreference.time}
             onChange={setPreference}
@@ -41,10 +45,14 @@ const ConfirmSuggestion = ({ onButtonClick }) => {
       }
       case "Question difficulty": {
         return (
-          <Select value="Easy">
-            <MenuItem value="Easy">Easy</MenuItem>
-            <MenuItem value="Medium">Medium</MenuItem>
-            <MenuItem value="Hard">Hard</MenuItem>
+          <Select
+            name="difficulty"
+            value={selectedPreference.difficulty[0].toUpperCase() + selectedPreference.difficulty.slice(1)}
+            onChange={setPreference}
+          >
+            <MenuItem value="Easy" key="Easy">Easy</MenuItem>
+            <MenuItem value="Medium" key="Medium">Medium</MenuItem>
+            <MenuItem value="Hard" key="Hard">Hard</MenuItem>
           </Select>
         )
       }
@@ -56,8 +64,8 @@ const ConfirmSuggestion = ({ onButtonClick }) => {
       <h1>Page 3: Check the suggestion</h1>
       <div className="confirm-preference">
         {
-          suggestions.map(suggestion => (
-            <div>
+          suggestions.map((suggestion, index) => (
+            <div key={index}>
               <div className="confirm-preference-question-area">
                 <h3>{suggestion.suggestion}</h3>
               </div>

@@ -24,7 +24,7 @@ function HomePage() {
         </Button>
       </div>
 
-      <AppFooter />
+      {/*<AppFooter />*/}
     </div>
   );
 }

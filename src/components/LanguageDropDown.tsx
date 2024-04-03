@@ -1,6 +1,6 @@
 import "../assets/css/dropdown.css";
 import React, { useState } from "react";
-import languages from "../assets/static/language";
+import { languages } from "../assets/static/language";
 import Box from '@mui/material/Box';
 import { FormControl } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
