@@ -8,13 +8,6 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { RegisterContext } from "../contexts/RegisterContext";
 import { registerSchema } from "../validations/RegisterValidations";
-
-interface registerForm {
-  name: "";
-  email: "";
-  password: "";
-  confirmPassword: "";
-}
 const Register = ({ onButtonClick }) => {
   const [processing, setProcessing] = useState(false);
   const { registerForm, modifyForm } = useContext(RegisterContext);
@@ -46,7 +39,7 @@ const Register = ({ onButtonClick }) => {
       await registerSchema.validate(formData, { abortEarly: false });
       console.log("Form Submitted", formData);
     } catch (error: any) {
-      const newErrors: registerForm = {
+      const newErrors = {
         name: "",
         email: "",
         password: "",
@@ -105,7 +98,6 @@ const Register = ({ onButtonClick }) => {
             onChange={handleFormModify}
             helperText={errors.email}
           />
-        
 
           <TextField
             error={errors.password.length != 0}
