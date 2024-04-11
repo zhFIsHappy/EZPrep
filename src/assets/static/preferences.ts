@@ -1,5 +1,5 @@
-import {PreferenceItem, SuggestionItem} from "../../types";
-import languages from "./language";
+import { PreferenceItem, SuggestionItem } from "../../types";
+import { languages } from "./language";
 export const preferences: PreferenceItem[] = [
   {
     question: "What is your programming experience?",
@@ -8,6 +8,7 @@ export const preferences: PreferenceItem[] = [
       "Intermediate",
       "Experienced"
     ],
+    name: "codingExperience",
   },
   {
     question: "What is your algorithm coding experience?",
@@ -16,10 +17,12 @@ export const preferences: PreferenceItem[] = [
       "Intermediate",
       "Experienced"
     ],
+    name: "algoExperience",
   },
   {
     question: "Which is your most familiar programming language?",
     options: Array.from(languages.values()),
+    name: "language",
   },
 ]
 

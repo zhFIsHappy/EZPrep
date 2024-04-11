@@ -12,7 +12,7 @@
 //   "typescript",
 // ];
 
-const languages = new Map([
+export const languages = new Map([
   ["c", "C"],
   ["cpp", "C++"],
   ["csharp", "C#"],
@@ -26,4 +26,16 @@ const languages = new Map([
   ["typescript", "TypeScript"],
 ]);
 
-export default languages;
+export const rMapLanguages = new Map([
+  ["C", "c"],
+  ["C++", "cpp"],
+  ["C#", "csharp"],
+  ["Go", "go"],
+  ["Java", "java"],
+  ["JavaScript", "javascript"],
+  ["Kotlin", "kotlin"],
+  ["Python", "python"],
+  ["Rust", "rust"],
+  ["Swift", "swift"],
+  ["TypeScript", "typescript"],
+]);

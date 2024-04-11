@@ -1,7 +1,6 @@
 import Register from "../components/UserRegister";
 import PreferenceSettings from "../components/PreferenceSettings";
 import ConfirmSuggestion from "../components/ConfirmSuggestion";
-// import "./App.css";
 import React, { useState } from "react";
 import MultiStepProgressBar from "../components/MultiStepProgressBar";
 import "../assets/css/register.css";
@@ -31,22 +30,24 @@ function RegisterPage() {
   };
 
   return (
-    <RegisterContextProvider>
-      <div className="register-page-layout">
-        <div className="register-page-header-area">
-          <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
-        </div>
-        <div className="register-form-area">
-          {
+    <div>
+      {/*<RegisterContextProvider>*/}
+        <div className="register-page-layout">
+          <div className="register-page-header-area">
+            <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
+          </div>
+          <div className="register-form-area">
             {
-              pageone: <Register onButtonClick={nextPage} />,
-              pagetwo: <PreferenceSettings onButtonClick={nextPage} />,
-              pagethree: <ConfirmSuggestion onButtonClick={nextPage} />,
-            }[page]
-          }
+              {
+                pageone: <Register onButtonClick={nextPage} />,
+                pagetwo: <PreferenceSettings onButtonClick={nextPage} />,
+                pagethree: <ConfirmSuggestion onButtonClick={nextPage} />,
+              }[page]
+            }
+          </div>
         </div>
-      </div>
-    </RegisterContextProvider>
+      {/*</RegisterContextProvider>*/}
+    </div>
   );
 }
 
