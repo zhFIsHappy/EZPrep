@@ -152,9 +152,6 @@ export default function CustomPaginationActionsTable() {
         if (Array.isArray(allProblemResponse)) {
           return setAllProblemObject(allProblemResponse);
         }
-        // if ("problem_statement" in allProblemResponse) {
-        //   return setAllProblemObject(allProblemResponse);
-        // }
         console.log(allProblemObject);
       } catch (error) {
         console.log("cannot get all problem");
@@ -166,15 +163,18 @@ export default function CustomPaginationActionsTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
+            ? allProblemObject.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
+            : allProblemObject
           ).map((row) => (
-            <TableRow key={row.problemId}>
+            <TableRow key={row.problem_id}>
               <TableCell component="th" scope="row">
-                {row.problemName}
+                {row.problem_title}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.difficulty}
+                {row.problem_difficulty}
               </TableCell>
               {/* <TableCell style={{ width: 160 }} align="right">
                 {row.fat}
