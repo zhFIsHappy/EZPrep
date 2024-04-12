@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { ProblemInfo } from "../reducers/ProblemInfo";
+import { ProblemStatement } from "../reducers/ProblemInfo";
 import { ServerError } from "../reducers/ServerError";
-const getProblemInfo = async (difficulty: string) => {
+const getProblemStatement = async (difficulty: string) => {
   try {
-    const response = await axios.get<ProblemInfo | ServerError>(
+    const response = await axios.get<ProblemStatement | ServerError>(
       "https://ezprep.discovery.cs.vt.edu/api/random-problem/" + difficulty
     );
 
@@ -22,4 +22,4 @@ const getProblemInfo = async (difficulty: string) => {
   }
 };
 
-export default getProblemInfo;
+export default getProblemStatement;
