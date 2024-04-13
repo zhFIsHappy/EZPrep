@@ -8,10 +8,10 @@ import axios, { AxiosError } from "axios";
 import { MessagesContext, TimerContext } from "../contexts/InterviewContext";
 import { MessageTypes } from "../reducers/MessagesReducer";
 import { languages, rMapLanguages } from "../assets/static/language";
-import getProblemInfo from "../apis/CodeEditorAPI";
-import { ProblemInfo } from "../reducers/ProblemInfo";
+import { ProblemStatement } from "../reducers/ProblemInfo";
 import { commentProblemStatement } from "../utils/CodeFormatter";
 import { RegisterContext } from "../contexts/RegisterContext";
+import getProblemStatement from "../apis/CodeEditorAPI";
 
 function CodeEditor() {
   const { messagesDispatch } = useContext(MessagesContext);
@@ -19,9 +19,11 @@ function CodeEditor() {
   const { selectedPreference } = useContext(RegisterContext);
 
   const [languageChoice, setLanguageChoice] = useState(
-    rMapLanguages[selectedPreference.language]??"c"
+    rMapLanguages[selectedPreference.language] ?? "c"
   );
-  const [problemInfo, setProblemInfo] = useState<ProblemInfo | null>(null);
+  const [problemStatement, setProblemInfo] = useState<ProblemStatement | null>(
+    null
+  );
   const editorRef = useRef(null as any);
 
   function handleEditorDidMount(editor: any, monaco: any) {
@@ -51,13 +53,15 @@ function CodeEditor() {
   useEffect(() => {
     (async function () {
       try {
-        const problem_info = await getProblemInfo(selectedPreference.difficulty.toLowerCase()??"easy");
-        if ("problem_statement" in problem_info) {
-          return setProblemInfo(problem_info);
+        const problem_statement = await getProblemStatement(
+          selectedPreference.difficulty.toLowerCase() ?? "easy"
+        );
+        if ("problem_statement" in problem_statement) {
+          return setProblemInfo(problem_statement);
         }
       } catch (error) {}
     })();
-    setLanguageChoice(rMapLanguages[selectedPreference.language]??"c");
+    setLanguageChoice(rMapLanguages[selectedPreference.language] ?? "c");
   }, []);
 
   useEffect(() => {
@@ -112,7 +116,7 @@ function CodeEditor() {
             height="94vh"
             language={languageChoice}
             value={commentProblemStatement(
-              problemInfo?.problem_statement,
+              problemStatement?.problem_statement,
               languageChoice
             )}
             onChange={onModifyCode}
