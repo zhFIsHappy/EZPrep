@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/login.css";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
@@ -8,6 +8,8 @@ import Alert from "@mui/material/Alert";
 import LoadingButton from "@mui/lab/LoadingButton";
 import axios from "axios";
 import md5 from "md5";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export function UserLogin() {
   const [password, setPassword] = useState("");
@@ -15,6 +17,7 @@ export function UserLogin() {
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(-1);
   const [serverResponse, setServerResponse] = useState("");
+
   const navigate = useNavigate();
 
   const updateForm = (e) => {
@@ -24,11 +27,10 @@ export function UserLogin() {
     } else if (name === "email") {
       setEmail(value);
     }
-  }
+  };
 
-  const submitLogin = (e) => {
+  const onSubmit = (e) => {
     setProcessing(true);
-
     axios
       .post("https://ezprep.discovery.cs.vt.edu/api/login", {
         email: email,
@@ -37,8 +39,10 @@ export function UserLogin() {
       .then((response) => {
         setSuccess(1);
         setServerResponse("Login successful");
+        console.log(response.data);
+        Cookies.set("token", response.data.token, { expires: 100, path: "/" });
         setTimeout(() => {
-          navigate("/interview");
+          navigate("/");
         }, 1000);
       })
       .catch((error) => {
@@ -48,23 +52,28 @@ export function UserLogin() {
       .finally(() => {
         setProcessing(false);
       });
-  }
+  };
 
   const createAccountNavi = () => {
     navigate("/register");
-  }
+  };
 
   return (
     <>
-      {
-        success !== -1 && <div style={{ marginTop: "110px", position: "absolute", width: "100%" }}>
+      {success !== -1 && (
+        <div
+          style={{ marginTop: "110px", position: "absolute", width: "100%" }}
+        >
           <Box sx={{ width: "300px", margin: "0 auto" }}>
-            <Alert variant="filled" severity={success === 1? "success" : "error"}>
+            <Alert
+              variant="filled"
+              severity={success === 1 ? "success" : "error"}
+            >
               {serverResponse}
             </Alert>
           </Box>
         </div>
-      }
+      )}
       <div className="login-page-layout">
         <div className="user-login-container">
           <p className="login-form-title">Sign in</p>
@@ -74,7 +83,7 @@ export function UserLogin() {
               display="flex"
               flexDirection="column"
               sx={{
-                '& .MuiTextField-root': { m: 1, width: '35ch' },
+                "& .MuiTextField-root": { m: 1, width: "35ch" },
               }}
               alignItems="center"
               autoComplete="off"
@@ -100,20 +109,21 @@ export function UserLogin() {
             <Button
               variant="text"
               style={{ textTransform: "none" }}
-              onClick={ createAccountNavi }
+              onClick={createAccountNavi}
             >
               Create Account
             </Button>
             <LoadingButton
               variant="contained"
               style={{ textTransform: "none" }}
-              onClick={ submitLogin }
+              onClick={onSubmit}
               loading={processing}
-            >Login</LoadingButton>
+            >
+              Login
+            </LoadingButton>
           </div>
         </div>
       </div>
     </>
-
-  )
+  );
 }

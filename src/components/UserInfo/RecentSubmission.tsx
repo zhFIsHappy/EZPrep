@@ -14,9 +14,9 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import getAllProblem from "../apis/ProblemTableAPI";
+import getAllProblem from "../../apis/ProblemTableAPI";
 import { useEffect } from "react";
-import { ProblemInfo } from "../reducers/ProblemInfo";
+import { ProblemSubmissionInfo } from "../../reducers/ProblemInfo";
 import { useState } from "react";
 
 interface TablePaginationActionsProps {
@@ -99,40 +99,40 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createProblemData(
-  problemId: string,
-  problemName: number,
-  difficulty: number
-) {
-  return { problemId, problemName, difficulty };
-}
+// function createProblemData(
+//   problemId: string,
+//   problemName: number,
+//   difficulty: number
+// ) {
+//   return { problemId, problemName, difficulty };
+// }
 
-const rows = [
-  //   createProblemData("Cupcake", 305, 3.7),
-  //   createProblemData("Donut", 452, 25.0),
-  //   createProblemData("Eclair", 262, 16.0),
-  //   createProblemData("Frozen yoghurt", 159, 6.0),
-  //   createProblemData("Gingerbread", 356, 16.0),
-  //   createProblemData("Honeycomb", 408, 3.2),
-  //   createProblemData("Ice cream sandwich", 237, 9.0),
-  //   createProblemData("Jelly Bean", 375, 0.0),
-  //   createProblemData("KitKat", 518, 26.0),
-  //   createProblemData("Lollipop", 392, 0.2),
-  //   createProblemData("Marshmallow", 318, 0),
-  //   createProblemData("Nougat", 360, 19.0),
-  //   createProblemData("Oreo", 437, 18.0),
-];
+// const rows = [
+//   //   createProblemData("Cupcake", 305, 3.7),
+//   //   createProblemData("Donut", 452, 25.0),
+//   //   createProblemData("Eclair", 262, 16.0),
+//   //   createProblemData("Frozen yoghurt", 159, 6.0),
+//   //   createProblemData("Gingerbread", 356, 16.0),
+//   //   createProblemData("Honeycomb", 408, 3.2),
+//   //   createProblemData("Ice cream sandwich", 237, 9.0),
+//   //   createProblemData("Jelly Bean", 375, 0.0),
+//   //   createProblemData("KitKat", 518, 26.0),
+//   //   createProblemData("Lollipop", 392, 0.2),
+//   //   createProblemData("Marshmallow", 318, 0),
+//   //   createProblemData("Nougat", 360, 19.0),
+//   //   createProblemData("Oreo", 437, 18.0),
+// ];
 //.sort((a, b) => (a.calories < b.calories ? -1 : 1));
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [allProblemObject, setAllProblemObject] = useState<ProblemInfo[]>([]);
+  const [allSubmission, setallSubmission] = useState<ProblemSubmissionInfo[]>(
+    []
+  );
   // Avoid a layout jump when reaching the last page with empty rows.
 
   const emptyRows =
-    page > 0
-      ? Math.max(0, (1 + page) * rowsPerPage - allProblemObject.length)
-      : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - allSubmission.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -152,9 +152,9 @@ export default function CustomPaginationActionsTable() {
       try {
         const allProblemResponse = await getAllProblem();
         if (Array.isArray(allProblemResponse)) {
-          return setAllProblemObject(allProblemResponse);
+          return setallSubmission(allSubmission);
         }
-        console.log(allProblemObject);
+        console.log(allSubmission);
       } catch (error) {
         console.log("cannot get all problem");
       }
@@ -165,18 +165,18 @@ export default function CustomPaginationActionsTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
-            ? allProblemObject.slice(
+            ? allSubmission.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
-            : allProblemObject
+            : allSubmission
           ).map((row) => (
             <TableRow key={row.problem_id}>
               <TableCell component="th" scope="row">
                 {row.problem_title}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.problem_difficulty}
+                {row.problem_date}
               </TableCell>
               {/* <TableCell style={{ width: 160 }} align="right">
                 {row.fat}
@@ -194,7 +194,7 @@ export default function CustomPaginationActionsTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={3}
-              count={allProblemObject.length}
+              count={allSubmission.length}
               rowsPerPage={rowsPerPage}
               page={page}
               slotProps={{
