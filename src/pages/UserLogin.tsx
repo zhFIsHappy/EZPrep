@@ -39,8 +39,10 @@ export function UserLogin() {
       .then((response) => {
         setSuccess(1);
         setServerResponse("Login successful");
-        console.log(response.data);
-        Cookies.set("token", response.data.token, { expires: 100, path: "/" });
+        Cookies.set("token", response.data.token, {
+          expires: 100,
+          path: "/",
+        });
         setTimeout(() => {
           navigate("/");
         }, 1000);
