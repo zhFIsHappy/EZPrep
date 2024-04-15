@@ -1,13 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { ProblemStatement } from "../reducers/ProblemInfo";
-import { ServerError } from "../reducers/ServerError";
-const getProblemStatement = async (difficulty: string) => {
+import { ProblemStatement } from "../../types";
+import { ServerError } from "../../reducers/ServerError";
+export const getProblemStatement = async (difficulty: string) => {
   try {
     const response = await axios.get<ProblemStatement | ServerError>(
       "https://ezprep.discovery.cs.vt.edu/api/random-problem/" + difficulty
     );
-
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -22,4 +20,3 @@ const getProblemStatement = async (difficulty: string) => {
   }
 };
 
-export default getProblemStatement;

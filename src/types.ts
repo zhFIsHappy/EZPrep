@@ -43,6 +43,17 @@ export interface SelectedPreference {
   time: number;
 }
 
+export interface ProblemStatement {
+  problem_id: number;
+  problem_statement: string;
+}
+
+export interface ProblemInfo {
+  problem_id: number;
+  problem_title: string;
+  problem_difficulty: string;
+}
+
 
 export interface BookItem {
   description: string;

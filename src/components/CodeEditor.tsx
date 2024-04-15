@@ -11,7 +11,7 @@ import { languages, rMapLanguages } from "../assets/static/language";
 import { ProblemStatement } from "../reducers/ProblemInfo";
 import { commentProblemStatement } from "../utils/CodeFormatter";
 import { RegisterContext } from "../contexts/RegisterContext";
-import getProblemStatement from "../apis/CodeEditorAPI";
+import { getProblemStatement } from "../apis/modules/CodeEditorAPI";
 
 function CodeEditor() {
   const { messagesDispatch } = useContext(MessagesContext);

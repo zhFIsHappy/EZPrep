@@ -10,3 +10,12 @@ body,
 .footer-container {
   height: 5vh;
 }
+
+body {
+  --status-accepted: #37da58;
+  --status-failed: #ff9840;
+  --difficulty-easy: rgb(82, 196, 26);
+  --difficulty-medium: rgb(255, 193, 22);
+  --difficulty-hard: rgb(254, 76, 97);
+  --hyperlink: #4183C4;
+}
