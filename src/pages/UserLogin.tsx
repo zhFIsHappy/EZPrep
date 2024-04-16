@@ -44,7 +44,7 @@ export function UserLogin() {
           path: "/",
         });
         setTimeout(() => {
-          navigate("/");
+          navigate("/problemset");
         }, 1000);
       })
       .catch((error) => {
