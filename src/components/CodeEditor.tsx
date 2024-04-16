@@ -11,9 +11,16 @@ import { languages, rMapLanguages } from "../assets/static/language";
 import { ProblemStatement } from "../reducers/ProblemInfo";
 import { commentProblemStatement } from "../utils/CodeFormatter";
 import { RegisterContext } from "../contexts/RegisterContext";
-import { getProblemStatement } from "../apis/modules/CodeEditorAPI";
+import {
+  getProblemStatementByDifficulty,
+  getProblemStatementById
+} from "../apis/modules/CodeEditorAPI";
+import {useParams} from "react-router-dom";
+
 
 function CodeEditor() {
+  // TODO: temporary solution to get problem statement
+  let { problemId } = useParams();
   const { messagesDispatch } = useContext(MessagesContext);
   const { onModifyCode } = useContext(TimerContext);
   const { selectedPreference } = useContext(RegisterContext);
@@ -38,7 +45,8 @@ function CodeEditor() {
     // submit code editor value
     axios
       .post("https://ezprep.discovery.cs.vt.edu/api/submit", {
-        problem_id: -1,
+        problem_id: problemId,
+        user_id: 1,
         code: editorRef.current?.getValue(),
         language: languageChoice,
       })
@@ -51,11 +59,13 @@ function CodeEditor() {
   }
 
   useEffect(() => {
+    console.log(problemId);
     (async function () {
       try {
-        const problem_statement = await getProblemStatement(
-          selectedPreference.difficulty.toLowerCase() ?? "easy"
-        );
+        const problem_statement = await getProblemStatementById(problemId?? "1");
+        // const problem_statement = await getProblemStatementByDifficulty(
+        //   selectedPreference.difficulty.toLowerCase() ?? "easy"
+        // );
         if ("problem_statement" in problem_statement) {
           return setProblemInfo(problem_statement);
         }

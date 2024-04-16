@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import CodeEditor from "../components/CodeEditor";
 import "../assets/css/interview.css";
 import ChatBox from "../components/ChatBox";
-import { InterviewContextProvider } from "../contexts/InterviewContext";
+import { MessagesContext } from "../contexts/InterviewContext";
 import { InterviewHeader } from "./InterviewHeader";
+import { MessageTypes } from "../reducers/MessagesReducer";
 function Interview() {
+
+  // Clear the message context every time enter interview
+  // TODO: consider a nicer way to achieve
+  const { messagesDispatch } = useContext(MessagesContext);
+  useEffect(() => {
+    messagesDispatch({
+      type: MessageTypes.CLEAR,
+      content: "",
+    });
+  }, []);
+
   return (
     <>
       {/*<InterviewContextProvider>*/}

@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { ProblemInfo } from "../types";
 import { getAllProblem, getProblemByPage } from "../apis/modules/ProblemTableAPI";
 import { useNavigate, useLocation } from 'react-router-dom';
+import TabHeader from "./TabsHeader";
+import * as React from "react";
 
 export function ProblemSetPage() {
   const location = useLocation();
@@ -56,10 +58,11 @@ export function ProblemSetPage() {
 
   return (
     <>
+      <TabHeader/>
       <div className="problem-set-container">
         <ProblemTable problems={isLoading? Array.from(new Array(problemsPerPage)):problems} isLoading={isLoading} />
         <Pagination
-          style={{ padding: "10px", marginTop: "10px" }}
+          style={{ padding: "10px", marginTop: "15px" }}
           page={currentPage}
           count={totalPages}
           onChange={handlePageChange}
