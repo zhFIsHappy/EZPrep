@@ -9,6 +9,8 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Link } from 'react-router-dom';
 import "../assets/css/problemset.css";
 import { difficultyMap } from "../assets/static/problems";
+import { languages } from "../assets/static/language";
+import {timestampFormatter} from "../utils/DateFormatter";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -21,17 +23,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const ProblemTable = ({ problems, isLoading }) => {
+const SubmissionTable = ({ submissions, isLoading }) => {
 
   const problemTableRowsDOM = (isLoading: boolean) => {
     if (isLoading) {
-      return problems.map((problem, index) => (
+      return submissions.map((submission, index) => (
         <TableRow key={index}>
           <TableCell><Skeleton/></TableCell>
           <TableCell><Skeleton /></TableCell>
           <TableCell component="th" scope="row">
             <Skeleton />
           </TableCell>
+          {/*<TableCell><Skeleton /></TableCell>*/}
           <TableCell style={{ width: 160 }} align="right">
             <Skeleton />
           </TableCell>
@@ -39,16 +42,19 @@ const ProblemTable = ({ problems, isLoading }) => {
       ))
     } else {
       return (
-        problems.map(problem => (
-          <TableRow key={problem.problem_id}>
+        submissions.map(submission => (
+          <TableRow key={submission.id}>
             <TableCell></TableCell>
-            <TableCell>{problem.problem_id}</TableCell>
+            <TableCell>
+              <Link to={`/problem/${submission.problemId}`}>{`#${submission.problemId}. ${submission.problemTitle}`}</Link>
+            </TableCell>
             <TableCell component="th" scope="row">
-              <Link to={`/problem/${problem.problem_id}`}>{problem.problem_title}</Link>
+              <Link to={`/problem/${submission.problemId}`}>{languages.get(submission.language)}</Link>
             </TableCell>
-            <TableCell style={{ width: 120 }}>
-              <span className={`${difficultyMap.get(problem.problem_difficulty)}`}>{difficultyMap.get(problem.problem_difficulty)}</span>
-            </TableCell>
+            {/*<TableCell style={{ width: 120 }}>*/}
+            {/*  <span className={`Hard`}>{"Easy"}</span>*/}
+            {/*</TableCell>*/}
+            <TableCell>{timestampFormatter(submission.timeSubmitted)}</TableCell>
           </TableRow>
         ))
       )
@@ -61,10 +67,12 @@ const ProblemTable = ({ problems, isLoading }) => {
         <Table aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell style={{ width: '5%', fontWeight: 'bold', fontSize: '16px' }}>Status</StyledTableCell>
-              <StyledTableCell style={{ width: '7%', fontWeight: 'bold', fontSize: '16px' }}>#</StyledTableCell>
-              <StyledTableCell style={{ width: '73%', fontWeight: 'bold', fontSize: '16px' }}>Title</StyledTableCell>
-              <StyledTableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Difficulty</StyledTableCell>
+              <StyledTableCell style={{ width: '13%', fontWeight: 'bold', fontSize: '16px' }}>Status</StyledTableCell>
+              {/*<StyledTableCell style={{ width: '7%', fontWeight: 'bold', fontSize: '16px' }}>Problem</StyledTableCell>*/}
+              <StyledTableCell style={{ width: '54%', fontWeight: 'bold', fontSize: '16px' }}>Problem</StyledTableCell>
+              <StyledTableCell style={{ width: '13%', fontWeight: 'bold', fontSize: '16px' }}>Language</StyledTableCell>
+              {/*<StyledTableCell style={{ width: '7%', fontWeight: 'bold', fontSize: '16px' }}>Code</StyledTableCell>*/}
+              <StyledTableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Submit Time</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,4 +84,4 @@ const ProblemTable = ({ problems, isLoading }) => {
   );
 }
 
-export default ProblemTable;
+export default SubmissionTable;

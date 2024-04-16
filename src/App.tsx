@@ -6,7 +6,8 @@ import { useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import { UserLogin } from "./pages/UserLogin";
-import CustomPaginationActionsTable from "./components/ProblemTable";
+import { ProblemSetPage } from "./pages/ProblemSetPage";
+import SubmissionsPage from "./pages/SubmissionsPage";
 
 // Define the props type
 interface AppProps {
@@ -23,11 +24,13 @@ const App: React.FC<AppProps> = ({ extra }) => {
         <Route path="/">
           <Route path="/" element={<HomePage />} />
           <Route path="/interview" element={<Interview />} />
+          <Route path="/problem/:problemId" element={<Interview />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" Component={RegisterPage} />
+          <Route path="/submissions" element={<SubmissionsPage />}/>
           <Route
             path="/problemset"
-            element={<CustomPaginationActionsTable />}
+            element={<ProblemSetPage />}
           ></Route>
           <Route
             path="*"

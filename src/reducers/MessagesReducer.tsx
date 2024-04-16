@@ -1,6 +1,11 @@
 import { ChatMessage, SenderType } from "../types";
 
+const initialMessages: ChatMessage[] = [
+  {sender: SenderType.AI, content: "Your Chat With Interviewer Starts Here ..."}
+];
+
 export enum MessageTypes {
+  CLEAR = -1,
   SEND,
   RECEIVE,
 }
@@ -31,6 +36,9 @@ export function messagesReducer(
           content: action.content,
         },
       ];
+    }
+    case MessageTypes.CLEAR: {
+      return initialMessages;
     }
     // case 'changed': {
     //   return messages.map(t => {

@@ -29,6 +29,9 @@ const AppHeader = () => {
               <a href="/">Home</a>
             </li>
             <li>
+              <a href="/problemset">Problemset</a>
+            </li>
+            <li>
               <a href="/community">Community</a>
             </li>
             <li>
