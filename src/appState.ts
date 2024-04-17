@@ -1,6 +1,5 @@
 import { makeAutoObservable, makeObservable, observable, observe } from "mobx";
 import { makePersistable } from 'mobx-persist-store';
-import {type} from "os";
 
 export class AppState {
   token: string | null = null;
