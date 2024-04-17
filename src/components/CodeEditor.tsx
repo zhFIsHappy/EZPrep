@@ -16,6 +16,7 @@ import {
   getProblemStatementById
 } from "../apis/modules/CodeEditorAPI";
 import {useParams} from "react-router-dom";
+import {appState} from "../appState";
 
 
 function CodeEditor() {
@@ -46,7 +47,7 @@ function CodeEditor() {
     axios
       .post("https://ezprep.discovery.cs.vt.edu/api/submit", {
         problem_id: problemId,
-        user_id: 1,
+        user_id: appState.userId,
         code: editorRef.current?.getValue(),
         language: languageChoice,
       })
@@ -59,7 +60,6 @@ function CodeEditor() {
   }
 
   useEffect(() => {
-    console.log(problemId);
     (async function () {
       try {
         const problem_statement = await getProblemStatementById(problemId?? "1");

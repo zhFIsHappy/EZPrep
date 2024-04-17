@@ -8,8 +8,8 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { RegisterContext } from "../contexts/RegisterContext";
 import { registerSchema } from "../validations/RegisterValidations";
-import {MessageTypes} from "../reducers/MessagesReducer";
 import md5 from "md5";
+import { appState } from "../appState";
 
 const Register = ({ onButtonClick }) => {
   const { registerForm, modifyForm, clearForm } = useContext(RegisterContext);
@@ -57,6 +57,10 @@ const Register = ({ onButtonClick }) => {
             success: 1,
             message: "Create account successful",
           });
+          appState.token = response.data.token;
+          appState.userId = response.data.user_id;
+          appState.userName = response.data.user_name;
+          appState.isLoggedIn = true;
           setTimeout(() => {
             clearForm();
             onButtonClick("pagetwo");

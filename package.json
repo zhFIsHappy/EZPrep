@@ -25,6 +25,8 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "md5": "^2.3.0",
+    "mobx": "^6.12.3",
+    "mobx-persist-store": "^1.1.5",
     "monaco-editor": "^0.45.0",
     "nanoid": "^5.0.5",
     "react": "^18.2.0",
