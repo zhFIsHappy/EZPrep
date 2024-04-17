@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import "../assets/css/problemset.css";
 import { difficultyMap } from "../assets/static/problems";
 import { languages } from "../assets/static/language";
-import {timestampFormatter} from "../utils/DateFormatter";
+import { timestampFormatter } from "../utils/DateFormatter";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

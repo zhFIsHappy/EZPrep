@@ -8,6 +8,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { SubmissionResponseInfo } from "../types";
 import { getAllSubmissions, getSubmissions } from "../apis/modules/SubmissionAPI";
 import SubmissionTable from "../components/SubmissionTable";
+import { appState } from "../appState";
+import LoginAlertDialog from "../components/NotLoggedInAlertDialog";
 
 export default function SubmissionsPage() {
   const location = useLocation();
@@ -23,9 +25,12 @@ export default function SubmissionsPage() {
 
   useEffect(() => {
     setIsLoading(true);
+    if (!appState.isLoggedIn) {
+      return;
+    }
     (async function () {
       try {
-        const allSubmissionsResponse = await getAllSubmissions(1);
+        const allSubmissionsResponse = await getAllSubmissions(appState.userId);
         if (Array.isArray(allSubmissionsResponse)) {
           setTotalPages(Math.ceil(allSubmissionsResponse.length / submissionsPerPage));
         }
@@ -37,6 +42,9 @@ export default function SubmissionsPage() {
   }, []);
 
   useEffect(() => {
+    if (!appState.isLoggedIn) {
+      return;
+    }
     setIsLoading(true);
     fetchProblems(currentPage);
     setIsLoading(false);
@@ -44,8 +52,7 @@ export default function SubmissionsPage() {
 
   const fetchProblems = async (page: number)=> {
     try {
-      // TODO: change the hard-coded user ID
-      const submissions = await getSubmissions(page, submissionsPerPage, 1);
+      const submissions = await getSubmissions(page, submissionsPerPage, appState.userId);
       if (Array.isArray(submissions)) {
         setSubmissions(submissions);
       }
@@ -61,6 +68,7 @@ export default function SubmissionsPage() {
 
   return (
     <>
+      {appState.isLoggedIn? <div/>:<LoginAlertDialog />}
       <TabHeader/>
       <div className="submission-container">
         <div className="submission-title-container">
