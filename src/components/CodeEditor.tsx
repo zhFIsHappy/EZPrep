@@ -46,7 +46,7 @@ function CodeEditor() {
     // submit code editor value
     axios
       .post("https://ezprep.discovery.cs.vt.edu/api/submit", {
-        problem_id: problemId,
+        problem_id: parseInt(problemId || "1"),
         user_id: appState.userId,
         code: editorRef.current?.getValue(),
         language: languageChoice,
