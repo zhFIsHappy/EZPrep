@@ -7,7 +7,7 @@ export function InterviewHeader() {
   const navigate = useNavigate()
 
   const backToHomePage = () => {
-    navigate("/");
+    navigate("/problemset");
   }
 
   return (

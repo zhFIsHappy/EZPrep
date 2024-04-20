@@ -1,0 +1,32 @@
+.problem-set-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+
+  a {
+    color: var(--hyperlink);
+    text-decoration: none;
+  }
+}
+
+
+.accepted {
+  color: var(--status-accepted);
+}
+
+.failed {
+  color: var(--status-failed);
+}
+
+.Easy {
+  color: var(--difficulty-easy);
+}
+
+.Medium {
+  color: var(--difficulty-medium);
+}
+
+.Hard {
+  color: var(--difficulty-hard);
+}

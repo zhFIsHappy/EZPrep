@@ -2,12 +2,14 @@ import Interview from "./pages/Interview";
 import AppHeader from "./pages/AppHeader";
 import AppFooter from "./pages/AppFooter";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useEffect } from "react";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import { UserLogin } from "./pages/UserLogin";
-import CustomPaginationActionsTable from "./components/ProblemTable";
+import { ProblemSetPage } from "./pages/ProblemSetPage";
+import SubmissionsPage from "./pages/SubmissionsPage";
 import UserProfile from "./pages/UserProfile";
+import initApp from "./initApp";
 
 // Define the props type
 interface AppProps {
@@ -16,6 +18,10 @@ interface AppProps {
 //RegisterPage
 // Modify the App component to accept its props
 const App: React.FC<AppProps> = ({ extra }) => {
+
+  useEffect(() => {
+    initApp();
+  }, [])
   // Your existing App component code...
   return (
     <Router>
@@ -24,12 +30,14 @@ const App: React.FC<AppProps> = ({ extra }) => {
         <Route path="/">
           <Route path="/" element={<HomePage />} />
           <Route path="/interview" element={<Interview />} />
+          <Route path="/problem/:problemId" element={<Interview />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" Component={RegisterPage} />
           <Route path="/profile" Component={UserProfile} />
+          <Route path="/submissions" element={<SubmissionsPage />}/>
           <Route
             path="/problemset"
-            element={<CustomPaginationActionsTable />}
+            element={<ProblemSetPage />}
           ></Route>
           <Route
             path="*"

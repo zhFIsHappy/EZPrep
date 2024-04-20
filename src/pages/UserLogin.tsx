@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/login.css";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
@@ -10,6 +11,7 @@ import axios from "axios";
 import md5 from "md5";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { appState } from "../appState";
 
 export function UserLogin() {
   const [password, setPassword] = useState("");
@@ -18,7 +20,14 @@ export function UserLogin() {
   const [success, setSuccess] = useState(-1);
   const [serverResponse, setServerResponse] = useState("");
 
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (appState.isLoggedIn) {
+      navigate("/problemset");
+    }
+  }, []);
 
   const updateForm = (e) => {
     const { name, value } = e.target;
@@ -27,6 +36,7 @@ export function UserLogin() {
     } else if (name === "email") {
       setEmail(value);
     }
+  };
   };
 
   const onSubmit = (e) => {
@@ -39,12 +49,16 @@ export function UserLogin() {
       .then((response) => {
         setSuccess(1);
         setServerResponse("Login successful");
+        appState.token = response.data.token;
+        appState.userId = response.data.user_id;
+        appState.userName = response.data.user_name;
+        appState.isLoggedIn = true;
         Cookies.set("token", response.data.token, {
           expires: 100,
           path: "/",
         });
         setTimeout(() => {
-          navigate("/");
+          navigate("/problemset");
         }, 1000);
       })
       .catch((error) => {
@@ -55,9 +69,11 @@ export function UserLogin() {
         setProcessing(false);
       });
   };
+  };
 
   const createAccountNavi = () => {
     navigate("/register");
+  };
   };
 
   return (

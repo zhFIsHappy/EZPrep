@@ -43,6 +43,29 @@ export interface SelectedPreference {
   time: number;
 }
 
+export interface ProblemStatement {
+  problem_id: number;
+  problem_statement: string;
+}
+
+export interface ProblemInfo {
+  problem_id: number;
+  problem_title: string;
+  problem_difficulty: string;
+}
+
+export interface SubmissionResponseInfo {
+  submissionId: number;
+  problemId: number;
+  problemTitle: string;
+  language: string;
+  timeSubmitted: number;
+  // TODO: specific the type after figuring out the kind of response get from AI
+  aiResponse?: any;
+  // TODO: add this field after impl code running service
+  result?: any;
+}
+
 
 export interface BookItem {
   description: string;
