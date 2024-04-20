@@ -1,0 +1,34 @@
+.user-container {
+  display: flex;
+  align-items: center;
+  border: solid;
+  border-radius: 3px;
+  width: fit-content;
+  flex-wrap: wrap;
+  padding: 10px; /* Add padding to space content from border */
+  flex-direction: column;
+}
+
+.user-avatar {
+  float: left;
+  border: 5px;
+}
+
+.userinfo-content {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.Button {
+  display: block;
+  margin: auto;
+  margin-top: auto;
+}
+user-container .Button {
+  width: 50px;
+  margin: 0 auto;
+}

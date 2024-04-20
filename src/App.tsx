@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import { UserLogin } from "./pages/UserLogin";
 import CustomPaginationActionsTable from "./components/ProblemTable";
+import UserProfile from "./pages/UserProfile";
 
 // Define the props type
 interface AppProps {
@@ -25,6 +26,7 @@ const App: React.FC<AppProps> = ({ extra }) => {
           <Route path="/interview" element={<Interview />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" Component={RegisterPage} />
+          <Route path="/profile" Component={UserProfile} />
           <Route
             path="/problemset"
             element={<CustomPaginationActionsTable />}
