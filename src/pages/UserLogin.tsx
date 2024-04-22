@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import React, { useEffect, useState } from "react";
 import "../assets/css/login.css";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
@@ -20,7 +19,6 @@ export function UserLogin() {
   const [success, setSuccess] = useState(-1);
   const [serverResponse, setServerResponse] = useState("");
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +34,6 @@ export function UserLogin() {
     } else if (name === "email") {
       setEmail(value);
     }
-  };
   };
 
   const onSubmit = (e) => {
@@ -69,11 +66,9 @@ export function UserLogin() {
         setProcessing(false);
       });
   };
-  };
 
   const createAccountNavi = () => {
     navigate("/register");
-  };
   };
 
   return (

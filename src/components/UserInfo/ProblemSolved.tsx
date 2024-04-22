@@ -1,6 +1,8 @@
 import { Progress } from "antd";
 import { useState } from "react";
 import { getUserSolvedQuestionsCount } from "../../apis/UserInfoAPI";
+import "../../assets/css/problemsolved.css";
+import { appState } from "../../appState";
 
 export default function UserProgress() {
   const [easySolvedAmount, setEasySolved] = useState<number>(0);
@@ -9,7 +11,7 @@ export default function UserProgress() {
   const [easyTotal, setEasyTotal] = useState<number>(0);
   const [mediumTotal, setMediumTotal] = useState<number>(0);
   const [hardTotal, setHardTotal] = useState<number>(0);
-  async function getUserSolvedAmount(user_id: string) {
+  async function getUserSolvedAmount(user_id: number) {
     const userSubmissionAmountResponse = await getUserSolvedQuestionsCount(
       user_id
     );
@@ -27,25 +29,35 @@ export default function UserProgress() {
       );
     }
   }
-  //TODO: Replace fake_id with real user_id
-  getUserSolvedAmount("fake_id");
-  // if (userSubmissionAmountResponse)
+
+  getUserSolvedAmount(appState.userId);
   return (
     <div className="progress-container">
-      Easy :{" "}
+      <h4>
+        Easy : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {easySolvedAmount / easyTotal}
+      </h4>
       <Progress
-        percent={easySolvedAmount / easyTotal}
-        strokeColor="#8fb935"
+        percent={(easySolvedAmount / easyTotal) * 100}
+        strokeColor="var(--difficulty-easy)"
         size="small"
       />
+      <h4>
+        Medium : &nbsp;
+        {mediumSolvedAmount / mediumTotal}
+      </h4>
       <Progress
-        percent={mediumSolvedAmount / mediumTotal}
-        strokeColor="#e09c3b"
+        percent={(mediumSolvedAmount / mediumTotal) * 100}
+        strokeColor="var(--difficulty-medium)"
         size="small"
       />
+      <h4>
+        Hard : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {hardSolvedAmount / hardTotal}
+      </h4>
       <Progress
-        percent={hardSolvedAmount / hardTotal}
-        strokeColor="#e64747"
+        percent={(hardSolvedAmount / hardTotal) * 100}
+        strokeColor="var(--difficulty-medium)"
         size="small"
       />
     </div>

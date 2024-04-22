@@ -22,7 +22,7 @@ export const getUserInfo = async () => {
   }
 };
 
-export const getUserSolvedQuestionsCount = async (user_id: string) => {
+export const getUserSolvedQuestionsCount = async (user_id: number) => {
   try {
     const response = await axios.get<userSolvedQuestionsCount | ServerError>(
       "https://ezprep.discovery.cs.vt.edu/api/user-solved/"

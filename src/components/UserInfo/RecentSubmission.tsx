@@ -11,13 +11,13 @@ const RecentSubmissions: React.FC<Props> = ({ submissions }) => {
   const columns = [
     {
       title: "Problem_ID",
-      dataIndex: "project",
-      key: "project",
+      dataIndex: "id",
+      key: "id",
     },
     {
       title: "Problem_Name",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Submission_Date",

@@ -3,28 +3,16 @@ import Avatar from "@mui/material/Avatar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { deepOrange } from "@mui/material/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUserInfo } from "../../apis/UserInfoAPI";
 import "../../assets/css/userinfo.css";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
+import { SettingOutlined } from "@ant-design/icons";
+import { appState } from "../../appState";
 
 export default function UserDetails() {
-  // const [username, setUsername] = useState("");
-  // const [userId, setUserId] = useState("");
-
-  // const token = Cookies.get("token");
-  // if (token) {
-  //   const decodedToken: any = jwtDecode(token);
-  //   const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
-  //   if (decodedToken.exp && decodedToken.exp > currentTime) {
-  //     setUserId(decodedToken.user_id);
-  //   } else {
-  //     // Token is expired or invalid, clear it from the cookie
-  //     // TODO: LOGOUT
-  //     Cookies.remove("token");
-  //   }
-  // }
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   // async function retrieveUserinfo() {
   //   const userInfoResponse = await getUserInfo();
   //   if ("username" in userInfoResponse) {
@@ -35,23 +23,21 @@ export default function UserDetails() {
   //   }
   // }
 
+  // retrieveUserinfo();
+
   return (
     <div>
       <div className="user-container">
         <div className="user-avatar">
-          <Avatar sx={{ bgcolor: deepOrange[500] }} variant="circular">
-            {/* {username.charAt(0)} */}
-            ZF
+          <Avatar sx={{ bgcolor: "primary.main" }}>
+            {appState.userName[0].toUpperCase()}
           </Avatar>
         </div>
         <div className="userinfo-content">
-          <p className="username"> Username: zhfan</p>
-          <p className="user_id">User_ID: 01</p>
+          <p className="username"> Username: {appState.userName}</p>
+          <p className="user_id">User_ID: {appState.userId}</p>
         </div>
-        <hr />
-        <Button className="Button" variant="contained">
-          Edit Profile
-        </Button>
+        <SettingOutlined className="settings" />
       </div>
     </div>
   );

@@ -1,22 +1,13 @@
 .user-container {
-  display: flex;
-  align-items: center;
-  border: solid;
-  border-radius: 3px;
-  width: fit-content;
-  flex-wrap: wrap;
-  padding: 10px; /* Add padding to space content from border */
-  flex-direction: column;
+  margin-top: 4%;
+  margin-left: 4%;
 }
-
 .user-avatar {
-  float: left;
-  border: 5px;
+  margin-bottom: 10px; /* Add margin bottom to space from userinfo-content */
 }
 
 .userinfo-content {
   margin-left: 10px;
-  margin-bottom: 10px;
 }
 
 .username {
@@ -26,9 +17,6 @@
 .Button {
   display: block;
   margin: auto;
-  margin-top: auto;
-}
-user-container .Button {
+  margin-top: 10px; /* Add margin top to space from userinfo-content */
   width: 50px;
-  margin: 0 auto;
 }
