@@ -1,28 +1,28 @@
 import React from "react";
 import { Table } from "antd";
 import "antd/dist/reset.css"; // Import Ant Design styles
-import { ProblemSubmissionInfo } from "../../reducers/ProblemInfo";
+import { SubmissionResponseInfo } from "../../types";
 
 interface Props {
-  submissions: ProblemSubmissionInfo[];
+  submissions: SubmissionResponseInfo[];
 }
 
-const RecentSubmissions: React.FC<Props> = ({ submissions }) => {
+const RecentSubmissions: React.FC<Props> = ({ submissions }, index) => {
   const columns = [
     {
       title: "Problem_ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "problemId",
+      key: "problemId",
     },
     {
-      title: "Problem_Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Problem_Title",
+      dataIndex: "problemTitle",
+      key: "problemTitle",
     },
     {
       title: "Submission_Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "timeSubmitted",
+      key: "timeSubmitted",
     },
     {
       title: "Status",
@@ -31,7 +31,9 @@ const RecentSubmissions: React.FC<Props> = ({ submissions }) => {
     },
   ];
 
-  return <Table dataSource={submissions} columns={columns} />;
+  return (
+    <Table dataSource={submissions} columns={columns} pagination={false} />
+  );
 };
 
 export default RecentSubmissions;

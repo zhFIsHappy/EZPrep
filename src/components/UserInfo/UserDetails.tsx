@@ -29,7 +29,14 @@ export default function UserDetails() {
     <div>
       <div className="user-container">
         <div className="user-avatar">
-          <Avatar sx={{ bgcolor: "primary.main" }}>
+          <Avatar
+            sx={{
+              bgcolor: "primary.main",
+              width: 200,
+              height: 200,
+              fontSize: 85,
+            }}
+          >
             {appState.userName[0].toUpperCase()}
           </Avatar>
         </div>
@@ -37,7 +44,9 @@ export default function UserDetails() {
           <p className="username"> Username: {appState.userName}</p>
           <p className="user_id">User_ID: {appState.userId}</p>
         </div>
-        <SettingOutlined className="settings" />
+        <Button variant="outlined" className="settings" color="success">
+          Edit Profile
+        </Button>
       </div>
     </div>
   );

@@ -1,11 +1,6 @@
 .right-container {
-  margin: auto;
-  /* width: 65%; */
+  flex: 0 0 70%; /* Set width to 60% */
   margin-left: 15px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  border: solid;
-  border-color: #8080802e;
   h3 {
     margin-bottom: 15px;
   }
@@ -14,22 +9,17 @@
 .full-height {
   height: 100%;
 }
-.user-container {
+.show-userinfo-container {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
   position: relative;
   display: flex;
   height: 100%;
 }
 
 .left-container {
-  flex: 0 0 30%; /* 30% width */
-}
-
-.right-container {
-  flex: 0 0 70%; /* 70% width */
-}
-.left-container {
-  /* display: flex; */
-  /* align-items: center; */
+  flex: 0 0 30%; /* Set width to 40% */
   border: solid;
   border-color: #8080802e;
   flex-wrap: wrap;
@@ -38,8 +28,22 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 .settings {
-  position: absolute; /* Position the setting icon absolutely */
   top: 0; /* Stick to the top */
   right: 0; /* Stick to the right */
   margin: 10px; /* Add margin for better appearance */
+}
+.right-top-container {
+  padding: 8px;
+  border: solid;
+  border-color: #8080802e;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 15px;
+}
+.right-bottom-container {
+  padding: 8px;
+  border: solid;
+  border-color: #8080802e;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
