@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { ServerError } from "../reducers/ServerError";
-import { userInfo, userSolvedQuestionsCount } from "../reducers/UserInfo";
+import { ServerError } from "../../reducers/ServerError";
+import { userInfo, userSolvedQuestionsCount } from "../../reducers/UserInfo";
 export const getUserInfo = async () => {
   try {
     const response = await axios.get<userInfo | ServerError>(

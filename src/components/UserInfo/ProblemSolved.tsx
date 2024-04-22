@@ -1,6 +1,6 @@
 import { Progress } from "antd";
 import { useState } from "react";
-import { getUserSolvedQuestionsCount } from "../../apis/UserInfoAPI";
+import { getUserSolvedQuestionsCount } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/problemsolved.css";
 import { appState } from "../../appState";
 
