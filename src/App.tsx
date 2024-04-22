@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import { UserLogin } from "./pages/UserLogin";
 import { ProblemSetPage } from "./pages/ProblemSetPage";
 import SubmissionsPage from "./pages/SubmissionsPage";
+import UserProfile from "./pages/UserProfile";
 import initApp from "./initApp";
 
 // Define the props type
@@ -32,6 +33,7 @@ const App: React.FC<AppProps> = ({ extra }) => {
           <Route path="/problem/:problemId" element={<Interview />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" Component={RegisterPage} />
+          <Route path="/profile" Component={UserProfile} />
           <Route path="/submissions" element={<SubmissionsPage />}/>
           <Route
             path="/problemset"
