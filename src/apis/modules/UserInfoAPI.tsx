@@ -7,7 +7,6 @@ export const getUserInfo = async () => {
       "https://ezprep.discovery.cs.vt.edu/api/userInfo/"
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
