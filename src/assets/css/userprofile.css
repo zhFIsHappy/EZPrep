@@ -6,6 +6,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   border: solid;
   border-color: #8080802e;
+  h3 {
+    margin-bottom: 15px;
+  }
 }
 
 .full-height {
@@ -39,7 +42,4 @@
   top: 0; /* Stick to the top */
   right: 0; /* Stick to the right */
   margin: 10px; /* Add margin for better appearance */
-}
-h3 {
-  margin-bottom: 15px;
 }
