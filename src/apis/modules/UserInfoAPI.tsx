@@ -1,10 +1,15 @@
 import axios, { AxiosError } from "axios";
 import { ServerError } from "../../reducers/ServerError";
-import { userInfo, userSolvedQuestionsCount } from "../../reducers/UserInfo";
-export const getUserInfo = async () => {
+import {
+  userAccountInfo,
+  userCodingPreference,
+  userSolvedQuestionsCount,
+} from "../../reducers/UserInfo";
+
+export const getUserAccountInfo = async (user_id: number) => {
   try {
-    const response = await axios.get<userInfo | ServerError>(
-      "https://ezprep.discovery.cs.vt.edu/api/userInfo/"
+    const response = await axios.get<userAccountInfo | ServerError>(
+      "https://ezprep.discovery.cs.vt.edu/api/user-account-info/"
     );
 
     return response.data;
@@ -17,7 +22,27 @@ export const getUserInfo = async () => {
       }
     }
     // console.log("somethings went wrong!");
-    return { errorMessage: "We cannot get problem statement" };
+    return { errorMessage: "We cannot get user account info" };
+  }
+};
+
+export const getUserCodingPreferenceInfo = async (user_id: number) => {
+  try {
+    const response = await axios.get<userCodingPreference | ServerError>(
+      "https://ezprep.discovery.cs.vt.edu/api/user-coding-preference/"
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const ServerErrors = error as AxiosError<ServerError>;
+      if (ServerErrors && ServerErrors.response) {
+        console.log(ServerErrors.response.data);
+        return ServerErrors.response.data;
+      }
+    }
+    // console.log("somethings went wrong!");
+    return { errorMessage: "We cannot get user coding preference info" };
   }
 };
 

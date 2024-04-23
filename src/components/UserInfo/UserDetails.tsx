@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { deepOrange } from "@mui/material/colors";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/userinfo.css";
 import Button from "@mui/material/Button";
 import { SettingOutlined } from "@ant-design/icons";

@@ -1,5 +1,12 @@
-export type userInfo = {
-  username: string;
+export type userAccountInfo = {
+  email: string;
+  password: string;
+};
+
+export type userCodingPreference = {
+  programmingExp: string;
+  codingExp: string;
+  codingLang: string;
 };
 
 export type userSolvedQuestionsCount = {
