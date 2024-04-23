@@ -1,5 +1,5 @@
 import { Progress } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUserSolvedQuestionsCount } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/problemsolved.css";
 import { appState } from "../../appState";
@@ -30,7 +30,9 @@ export default function UserProgress() {
     }
   }
 
-  getUserSolvedAmount(appState.userId);
+  useEffect(() =>{
+    getUserSolvedAmount(appState.userId);
+  })
   return (
     <div className="progress-container">
       <h4>
