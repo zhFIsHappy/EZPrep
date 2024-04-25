@@ -15,7 +15,7 @@ export default function UserProgress() {
     const userSubmissionAmountResponse = await getUserSolvedQuestionsCount(
       user_id
     );
-    if ("easy_finished" in userSubmissionAmountResponse) {
+    if (userSubmissionAmountResponse) {
       setEasySolved(userSubmissionAmountResponse.easy_finished);
       setMediumSolvedAmount(userSubmissionAmountResponse.medium_finished);
       setHardSolvedAmount(userSubmissionAmountResponse.hard_finished);
@@ -24,15 +24,14 @@ export default function UserProgress() {
       setHardTotal(userSubmissionAmountResponse.hard_total);
     } else {
       console.error(
-        "An error occurred when getting user solved questions amount :",
-        userSubmissionAmountResponse.errorMessage
+        "An error occurred when getting user solved questions amount :"
       );
     }
   }
 
-  useEffect(() =>{
+  useEffect(() => {
     getUserSolvedAmount(appState.userId);
-  })
+  });
   return (
     <div className="progress-container">
       <h4>

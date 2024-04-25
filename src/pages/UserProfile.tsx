@@ -7,6 +7,7 @@ import Divider from "@mui/material/Divider";
 import { getSubmissions } from "../apis/modules/SubmissionAPI";
 import { appState } from "../appState";
 import { SubmissionResponseInfo } from "../types";
+import TabsHeader from "./TabsHeader";
 
 export default function UserProfile() {
   const [submissions, setSubmissions] = useState<SubmissionResponseInfo[]>([]);
@@ -29,6 +30,7 @@ export default function UserProfile() {
 
   return (
     <div className="full-height">
+      <TabsHeader />
       <div className="show-userinfo-container">
         <div className="left-container">
           <UserDetails />

@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { appState } from "../../appState";
 import {
   getUserAccountInfo,
   getUserCodingPreferenceInfo,
+  postUserEditPreference,
 } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/edituserprofile.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import { FormControl } from "@mui/material";
+import Select from "@mui/material/Select";
+import { EditPreferences } from "../../assets/static/preferences";
+import { Avatar, MenuItem } from "@mui/material";
+import { RegisterContext } from "../../contexts/RegisterContext";
 
 export default function EditUserProfile() {
   const [username, setUsername] = useState("");
@@ -21,20 +27,17 @@ export default function EditUserProfile() {
 
   const [emailChange, setEmailChange] = useState("");
   const [passwordChange, setPasswordChange] = useState("");
-  const [programmingExpChange, setProgrammingExpChange] = useState("");
-  const [codingExpChange, setCodingExpChange] = useState("");
-  const [codingLangChange, setCodingLangChange] = useState("");
+  const { selectedPreference, modifyPreference } = useContext(RegisterContext);
 
   async function userAccountInfo(user_id: number) {
-    const userAccountInfoResponse = await getUserAccountInfo(user_id);
-    if ("email" in userAccountInfoResponse) {
-      setEmail(userAccountInfoResponse.email);
-      setPassword(userAccountInfoResponse.password);
-    } else {
-      console.error(
-        "An error occurred when getting user information :",
-        userAccountInfoResponse.errorMessage
-      );
+    try {
+      const userAccountInfoResponse = await getUserAccountInfo(user_id);
+      if (userAccountInfoResponse) {
+        setEmail(userAccountInfoResponse.email);
+        setPassword(userAccountInfoResponse.password);
+      }
+    } catch (error) {
+      console.error("An error occurred when getting user information:", error);
     }
   }
 
@@ -42,15 +45,12 @@ export default function EditUserProfile() {
     const userCodingPreferenceResponse = await getUserCodingPreferenceInfo(
       user_id
     );
-    if ("programmingExp" in userCodingPreferenceResponse) {
+    if (userCodingPreferenceResponse) {
       setProgrammingExp(userCodingPreferenceResponse.programmingExp);
       setCodingExp(userCodingPreferenceResponse.codingExp);
       setCodingLang(userCodingPreferenceResponse.codingLang);
     } else {
-      console.error(
-        "An error occurred when getting user information :",
-        userCodingPreferenceResponse.errorMessage
-      );
+      console.error("An error occurred when getting user information :");
     }
   }
 
@@ -61,70 +61,116 @@ export default function EditUserProfile() {
     userCodingPrefInfo(userId);
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleItemSelection = (e) => {
+    const { name, value } = e.target;
+    modifyPreference(name, value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Send updated user profile data to the server
-    // Implement your logic here
+    const updatedUserInfo = {
+      email: emailChange,
+      password: passwordChange,
+      programmingExp: selectedPreference.codingExperience,
+      codingExp: selectedPreference.algoExperience,
+      codingLang: selectedPreference.language,
+    };
+
+    try {
+      await postUserEditPreference(userId, updatedUserInfo);
+      console.log("User profile updated successfully");
+    } catch (error) {
+      console.error("Error updating user profile", error);
+    }
   };
 
   return (
-    <div className="edit-user-info-container">
-      <Box sx={{ maxWidth: 400 }}>
-        <h2>Edit User Profile</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <TextField
-              id="email"
-              label="Email"
-              defaultValue={email}
-              value={emailChange}
-              onChange={(e) => setEmailChange(e.target.value)}
-              fullWidth
-            />
+    <div>
+      <div className="edit-user-info-container">
+        <Box
+          sx={{
+            maxWidth: 400,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+          }}
+        >
+          <h2>Edit User Profile</h2>
+          <Avatar
+            sx={{
+              bgcolor: "primary.main",
+              width: 200,
+              height: 200,
+              fontSize: 85,
+            }}
+            className="avatar"
+          >
+            {appState.userName[0].toUpperCase()}
+          </Avatar>
+          <div className="edit-profile-form">
+            <form className="text-field-form">
+              <div className="text-field">
+                <TextField
+                  id="email"
+                  label="Email"
+                  defaultValue={email}
+                  value={emailChange}
+                  onChange={(e) => setEmailChange(e.target.value)}
+                  fullWidth
+                />
+              </div>
+              <div className="text-field">
+                <TextField
+                  id="password"
+                  label="Password"
+                  type="password"
+                  defaultValue={password}
+                  value={passwordChange}
+                  onChange={(e) => setPasswordChange(e.target.value)}
+                  fullWidth
+                />
+              </div>
+            </form>
+            <div>
+              {EditPreferences.map((preference, index) => (
+                <div>
+                  <div className="register-preference-question-area">
+                    <h3>{preference.question}</h3>
+                  </div>
+                  <div className="register-preference-answer-area">
+                    <Box sx={{ width: "35ch" }}>
+                      <FormControl fullWidth>
+                        <Select
+                          name={preference.name}
+                          onChange={handleItemSelection}
+                          value={
+                            selectedPreference[preference.name] ||
+                            preference.options[0]
+                          }
+                        >
+                          {preference.options.map((option, index) => (
+                            <MenuItem value={option}>{option}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              type="submit"
+              sx={{ marginTop: 2 }}
+            >
+              Save Changes
+            </Button>
           </div>
-          <div>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              defaultValue={password}
-              value={passwordChange}
-              onChange={(e) => setPasswordChange(e.target.value)}
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              id="programmingExp"
-              label="Programming Experience"
-              value={programmingExp}
-              onChange={(e) => setProgrammingExpChange(e.target.value)}
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              id="codingExp"
-              label="Coding Experience"
-              value={codingExp}
-              onChange={(e) => setCodingExpChange(e.target.value)}
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              id="codingLang"
-              label="Coding Language"
-              value={codingLang}
-              onChange={(e) => setCodingLangChange(e.target.value)}
-              fullWidth
-            />
-          </div>
-          <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
-            Save Changes
-          </Button>
-        </form>
-      </Box>
+        </Box>
+      </div>
     </div>
   );
 }
