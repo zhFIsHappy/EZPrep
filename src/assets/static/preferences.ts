@@ -26,6 +26,24 @@ export const preferences: PreferenceItem[] = [
   },
 ]
 
+
+export const EditPreferences: PreferenceItem[] = [
+  {
+    question: "Programming experience:",
+    options: ["Entry level", "Intermediate", "Experienced"],
+    name: "codingExperience",
+  },
+  {
+    question: "Algorithm coding experience:",
+    options: ["Entry level", "Intermediate", "Experienced"],
+    name: "algoExperience",
+  },
+  {
+    question: "Familiar programming language:",
+    options: Array.from(languages.values()),
+    name: "language",
+  },
+];
 export const suggestions: SuggestionItem[] = [
   {
     suggestion: "Question difficulty",
