@@ -4,8 +4,10 @@ import { TimerContext } from "../contexts/InterviewContext";
 import { leadingZeroFormatter } from "../utils/NumberFormatter";
 import { RegisterContext } from "../contexts/RegisterContext";
 
-export function InterviewTimer() {
-  const { beginTime, endTime } = useContext(TimerContext);
+const InterviewTimer = ({
+  endTime, onFinish
+}) => {
+  // const { beginTime, endTime } = useContext(TimerContext);
   const { selectedPreference } = useContext(RegisterContext);
   const [ totalTime, setTotalTime] = useState<number>(0);
   const [ countdown, setCountdown ] = useState(Date.now() + selectedPreference.time * 60 * 1000);
@@ -14,10 +16,18 @@ export function InterviewTimer() {
   const [ seconds, setSeconds ] = useState("00");
 
   useEffect(() => {
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      // setTotalTime(Date.now() - beginTime);
-      setTotalTime(countdown);
-      const time = countdown - Date.now();
+      if (endTime === 0) {
+        return;
+      }
+      const time = new Date(endTime).getTime() - Date.now();
+      if (time <= 0) {
+        onFinish();
+        clearInterval(interval);
+      }
       setHours(leadingZeroFormatter(Math.floor(time / 1000 / 3600), 2));
       setMinutes(leadingZeroFormatter(Math.floor(time / 1000 % 3600 / 60), 2));
       setSeconds(leadingZeroFormatter(Math.floor(time / 1000 % 60), 2));
@@ -25,7 +35,7 @@ export function InterviewTimer() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [endTime]);
 
   return (
     <>
@@ -36,3 +46,5 @@ export function InterviewTimer() {
     </>
   )
 }
+
+export default InterviewTimer;

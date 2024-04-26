@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import LanguageDropDown from "./LanguageDropDown";
 import Button from "@mui/material/Button";
 import axios, { AxiosError } from "axios";
-import { MessagesContext, TimerContext } from "../contexts/InterviewContext";
+import { TimerContext } from "../contexts/InterviewContext";
 import { MessageTypes } from "../reducers/MessagesReducer";
 import { languages, rMapLanguages } from "../assets/static/language";
 import { ProblemStatement } from "../reducers/ProblemInfo";
@@ -14,94 +14,57 @@ import { RegisterContext } from "../contexts/RegisterContext";
 import {
   getProblemStatementByDifficulty,
   getProblemStatementById
-} from "../apis/modules/CodeEditorAPI";
+} from "../apis/modules/InterviewAPI";
 import {useParams} from "react-router-dom";
-import {appState} from "../appState";
+import { appState } from "../appState";
 
 
-function CodeEditor() {
+const CodeEditor = ({
+  problemStatement, problemId, submitCode, modifyCode
+}) => {
   // TODO: temporary solution to get problem statement
-  let { problemId } = useParams();
-  const { messagesDispatch } = useContext(MessagesContext);
-  const { onModifyCode } = useContext(TimerContext);
+  // let { problemId } = useParams();
+  // const { messagesDispatch } = useContext(MessagesContext);
+  // const { onModifyCode } = useContext(TimerContext);
   const { selectedPreference } = useContext(RegisterContext);
 
   const [languageChoice, setLanguageChoice] = useState(
     rMapLanguages[selectedPreference.language] ?? "c"
   );
-  const [problemStatement, setProblemInfo] = useState<ProblemStatement | null>(
-    null
-  );
+  // const [problemStatement, setProblemInfo] = useState<ProblemStatement | null>(
+  //   null
+  // );
   const editorRef = useRef(null as any);
 
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
   }
 
-  function submitValue() {
-    // TODO: Extract network request into service
-    // problem_id
-    // problem_statement
-
-    // submit code editor value
-    axios
-      .post("https://ezprep.discovery.cs.vt.edu/api/submit", {
-        problem_id: parseInt(problemId || "1"),
-        user_id: appState.userId,
-        code: editorRef.current?.getValue(),
-        language: languageChoice,
-      })
-      .then((response) => {
-        messagesDispatch({
-          type: MessageTypes.RECEIVE,
-          content: response.data.ai_response,
-        });
-      });
+  // Manual submit
+  function handleSubmit() {
+    submitCode(editorRef.current?.getValue(), languageChoice);
   }
 
   useEffect(() => {
-    (async function () {
-      try {
-        const problem_statement = await getProblemStatementById(problemId?? "1");
-        // const problem_statement = await getProblemStatementByDifficulty(
-        //   selectedPreference.difficulty.toLowerCase() ?? "easy"
-        // );
-        if ("problem_statement" in problem_statement) {
-          return setProblemInfo(problem_statement);
-        }
-      } catch (error) {}
-    })();
-    setLanguageChoice(rMapLanguages[selectedPreference.language] ?? "c");
+    // console.log(problemStatement);
   }, []);
 
   useEffect(() => {
+
+    // Passive submit
     function postUpdatedValueBackend() {
-      const date = new Date();
-      const showTime =
-        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-      // axios post updated value back to backend
-      // TODO: Impl this endpoint in backend
-      axios
-        .post("https://ezprep.discovery.cs.vt.edu/api/update-code-value", {
-          problem_id: -1,
-          code: editorRef.current?.getValue(),
-          language: languageChoice,
-          timestamp: showTime,
-        })
-        .then((response) => {
-          messagesDispatch({
-            type: MessageTypes.RECEIVE,
-            content: response.data.ai_response,
-          });
-        });
-      console.log("timestamp");
+      submitCode(editorRef.current?.getValue(), languageChoice);
     }
-    // postUpdatedValueBackend();
+    postUpdatedValueBackend();
     const interval = setInterval(() => postUpdatedValueBackend(), 300000);
     return () => {
       clearInterval(interval);
     };
   }, []);
+
+  const onModifyCode = () => {
+    modifyCode(editorRef.current?.getValue(), languageChoice);
+  }
 
   return (
     <>
@@ -114,7 +77,7 @@ function CodeEditor() {
             </div>
             <Button
               variant="contained"
-              onClick={submitValue}
+              onClick={handleSubmit}
               // style={{ float: "right" }}
               type="button"
             >
@@ -125,10 +88,7 @@ function CodeEditor() {
           <Editor
             height="94vh"
             language={languageChoice}
-            value={commentProblemStatement(
-              problemStatement?.problem_statement,
-              languageChoice
-            )}
+            value={problemStatement}
             onChange={onModifyCode}
             theme="vs-dark"
             onMount={handleEditorDidMount}

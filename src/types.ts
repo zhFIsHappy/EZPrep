@@ -4,10 +4,10 @@ export enum SenderType {
   OTHER,
 }
 
-export interface ChatMessage {
-  sender: SenderType;
-  content: string;
-}
+// export interface ChatMessage {
+//   sender: SenderType;
+//   content: string;
+// }
 
 export interface RegisterForm {
   username: string;
@@ -73,6 +73,28 @@ export interface EditUserPreferenceInfo{
   codingExp : string;
   codingLang: string ;
 }
+
+export interface EditorValue {
+  code: string;
+  language: string;
+}
+
+export interface ChatMessage {
+  fromAi: boolean;
+  content: string;
+  sentTime?: number;
+}
+
+export interface InterviewInfo {
+  interviewId: number;
+  beginTime: number;
+  endTime: number;
+  editor: EditorValue;
+  prevExist: boolean;
+  messages: ChatMessage[];
+}
+
+
 
 
 export interface BookItem {

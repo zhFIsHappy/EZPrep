@@ -33,6 +33,20 @@ button {
   border: 0;
 }
 
+.my-message-content-container {
+  max-width: 80%;
+  background-color: #87CEFA;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.ai-message-content-container {
+  max-width: 80%;
+  background-color: #d3d3d3;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
 .messages {
   list-style-type: none;
   padding: 0 0 20px 0;
@@ -47,6 +61,7 @@ button {
     margin-top: 20px;
     display: flex;
 
+
     &.my-message {
       align-items: flex-end;
       justify-content: flex-end;
@@ -58,7 +73,14 @@ button {
     }
 
     &.my-message span {
-      /* background-color: #6d8fe8; */
+      margin-bottom: 10px;
+      word-wrap: break-word;
+       /* background-color: #6d8fe8; */
+    }
+
+    &.ai-message span {
+      max-width: 70%;
+       /*background-color: #6d8fe8;*/
     }
 
     span {
