@@ -1,5 +1,5 @@
 import { makeAutoObservable, makeObservable, observable, observe } from "mobx";
-import { makePersistable } from 'mobx-persist-store';
+import { makePersistable } from "mobx-persist-store";
 
 export class AppState {
   token: string | null = null;
@@ -15,7 +15,6 @@ export class AppState {
       properties: ["userName"], // properties to persist
     });
   }
-
 }
 
 export const appState = new AppState();

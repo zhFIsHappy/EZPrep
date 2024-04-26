@@ -4,15 +4,17 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { deepOrange } from "@mui/material/colors";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/userinfo.css";
 import Button from "@mui/material/Button";
 import { SettingOutlined } from "@ant-design/icons";
 import { appState } from "../../appState";
+import { useNavigate } from "react-router-dom";
 
 export default function UserDetails() {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
+
   // async function retrieveUserinfo() {
   //   const userInfoResponse = await getUserInfo();
   //   if ("username" in userInfoResponse) {
@@ -44,7 +46,12 @@ export default function UserDetails() {
           <p className="username"> Username: {appState.userName}</p>
           <p className="user_id">User_ID: {appState.userId}</p>
         </div>
-        <Button variant="outlined" className="settings" color="success">
+        <Button
+          variant="outlined"
+          onClick={() => navigate("/edit-profile")}
+          className="settings"
+          color="success"
+        >
           Edit Profile
         </Button>
       </div>

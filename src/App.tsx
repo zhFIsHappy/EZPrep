@@ -10,6 +10,7 @@ import { ProblemSetPage } from "./pages/ProblemSetPage";
 import SubmissionsPage from "./pages/SubmissionsPage";
 import UserProfile from "./pages/UserProfile";
 import initApp from "./initApp";
+import UserProfileEdit from "./pages/UserProfileEdit";
 
 // Define the props type
 interface AppProps {
@@ -18,10 +19,9 @@ interface AppProps {
 //RegisterPage
 // Modify the App component to accept its props
 const App: React.FC<AppProps> = ({ extra }) => {
-
   useEffect(() => {
     initApp();
-  }, [])
+  }, []);
   // Your existing App component code...
   return (
     <Router>
@@ -34,11 +34,9 @@ const App: React.FC<AppProps> = ({ extra }) => {
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" Component={RegisterPage} />
           <Route path="/profile" Component={UserProfile} />
-          <Route path="/submissions" element={<SubmissionsPage />}/>
-          <Route
-            path="/problemset"
-            element={<ProblemSetPage />}
-          ></Route>
+          <Route path="/edit-profile" element={<UserProfileEdit />} />
+          <Route path="/submissions" element={<SubmissionsPage />} />
+          <Route path="/problemset" element={<ProblemSetPage />}></Route>
           <Route
             path="*"
             element={<div style={{ fontSize: "large" }}>Page Not Found</div>}
