@@ -1,0 +1,33 @@
+.edit-user-info-container {
+  margin: auto;
+  width: 60%;
+  position: relative;
+  border: solid;
+  border-color: #8080802e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  .register-preference-question-area {
+    font-size: 12px;
+    font-weight: lighter;
+  }
+  Button {
+    text-align: center;
+    margin-bottom: 10px;
+    align-items: center;
+    /* position: absolute; */
+    /* top: 50%; */
+    left: 30%;
+  }
+}
+
+.avatar {
+  margin-bottom: 20px;
+}
+
+.text-field {
+  margin-bottom: 15px;
+}

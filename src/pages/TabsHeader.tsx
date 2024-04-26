@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CodeIcon from "@mui/icons-material/Code";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import { appState } from "../appState";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -59,6 +59,7 @@ export default function TabsHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const location = useLocation();
 
+  const navigate = useNavigate();
   const generateAvatarDOM = () => {
     return (
       <Avatar sx={{ bgcolor: "primary.main" }}>
@@ -158,7 +159,9 @@ export default function TabsHeader() {
                   <ListItemIcon>
                     <SettingsIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText>Preference settings</ListItemText>
+                  <ListItemText onClick={() => navigate("/edit-profile")}>
+                    Preference settings
+                  </ListItemText>
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={onLogoutClick}>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Table } from "antd";
-// import "antd/dist/reset.css"; // Import Ant Design styles
 import { SubmissionResponseInfo } from "../../types";
 import { timestampFormatter } from "../../utils/DateFormatter";
 

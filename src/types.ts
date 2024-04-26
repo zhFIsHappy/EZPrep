@@ -66,6 +66,14 @@ export interface SubmissionResponseInfo {
   result?: any;
 }
 
+export interface EditUserPreferenceInfo{
+  email: string;
+  password : string;
+  programmingExp: string;
+  codingExp : string;
+  codingLang: string ;
+}
+
 export interface EditorValue {
   code: string;
   language: string;
