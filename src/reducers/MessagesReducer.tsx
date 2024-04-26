@@ -1,7 +1,7 @@
 import { ChatMessage, SenderType } from "../types";
 
 const initialMessages: ChatMessage[] = [
-  {sender: SenderType.AI, content: "Your Chat With Interviewer Starts Here ..."}
+  // {sender: SenderType.AI, content: "Your Chat With Interviewer Starts Here ..."}
 ];
 
 export enum MessageTypes {

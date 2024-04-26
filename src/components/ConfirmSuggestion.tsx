@@ -9,13 +9,16 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { RegisterContext } from "../contexts/RegisterContext";
 import { useNavigate } from "react-router-dom";
+import {getProblemStatementByDifficulty} from "../apis/modules/InterviewAPI";
 
 const ConfirmSuggestion = ({ onButtonClick }) => {
 
   const navigate = useNavigate();
 
-  const confirmPreference = () => {
-    navigate("/interview");
+  const confirmPreference = async () => {
+    // TODO: navigate to problem/:id
+    const info = await getProblemStatementByDifficulty(selectedPreference.difficulty);
+    navigate(`/problem/${info?.problem_id}`);
   }
 
   const { selectedPreference, modifyPreference, preferenceTime } = useContext(RegisterContext);

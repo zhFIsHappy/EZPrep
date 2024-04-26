@@ -3,16 +3,16 @@ import {ChatMessage, SenderType} from "../types";
 import {MessageActions, messagesReducer} from "../reducers/MessagesReducer";
 import { RegisterContext } from "./RegisterContext";
 
-const initialMessages: ChatMessage[] = [
-  {sender: SenderType.AI, content: "Your Chat With Interviewer Starts Here ..."}
-];
-export const MessagesContext = createContext<{
-  messages: ChatMessage[];
-  messagesDispatch: Dispatch<MessageActions>;
-}>({
-  messages: initialMessages,
-  messagesDispatch: () => null
-});
+// const initialMessages: ChatMessage[] = [
+//   {sender: SenderType.AI, content: "Your Chat With Interviewer Starts Here ..."}
+// ];
+// export const MessagesContext = createContext<{
+//   messages: ChatMessage[];
+//   messagesDispatch: Dispatch<MessageActions>;
+// }>({
+//   messages: initialMessages,
+//   messagesDispatch: () => null
+// });
 
 export const TimerContext = createContext<{
   beginTime: number;
@@ -26,7 +26,7 @@ export const TimerContext = createContext<{
   onModifyCode: () => {}
 });
 
-MessagesContext.displayName = "InterviewContext";
+// MessagesContext.displayName = "InterviewContext";
 TimerContext.displayName = "TimerContext";
 
 export function InterviewContextProvider({children}: React.PropsWithChildren<{}>) {
@@ -36,7 +36,7 @@ export function InterviewContextProvider({children}: React.PropsWithChildren<{}>
   const [beginTime, setBeginTime] = useState<number>(Date.now());
   const [endTime, setEndTime] = useState<number>(Date.now() + selectedPreference.time * 60 * 1000);
   const [lastModifyTime, setLastModifyTime] = useState<number>(Date.now());
-  const [messages, messagesDispatch] = useReducer(messagesReducer, initialMessages);
+  // const [messages, messagesDispatch] = useReducer(messagesReducer, initialMessages);
 
   const initTimer = (minutes: number) => {
     if (beginTime === endTime) {
@@ -52,11 +52,11 @@ export function InterviewContextProvider({children}: React.PropsWithChildren<{}>
   // You can provide any other context values or functions you need here
   return (
     <>
-      <MessagesContext.Provider value={{ messages, messagesDispatch }}>
+      {/*<MessagesContext.Provider value={{ messages, messagesDispatch }}>*/}
         <TimerContext.Provider value={{ beginTime, endTime, lastModifyTime, onModifyCode }}>
           {children}
         </TimerContext.Provider>
-      </MessagesContext.Provider>
+      {/*</MessagesContext.Provider>*/}
 
     </>
   );

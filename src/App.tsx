@@ -1,4 +1,4 @@
-import Interview from "./pages/Interview";
+import Interview from "./pages/InterviewPage";
 import AppHeader from "./pages/AppHeader";
 import AppFooter from "./pages/AppFooter";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";

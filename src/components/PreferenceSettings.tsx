@@ -33,10 +33,8 @@ const PreferenceSettings = ({ onButtonClick }) => {
         })
         .then((response) => {
           console.log(response.data);
-          modifyPreference("time", response.data.time - 1);
           modifyPreference("time", response.data.time);
           modifyPreference("difficulty", response.data.difficulty);
-
           setProcessing(false);
         })
         .catch((error) => {
