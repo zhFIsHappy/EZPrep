@@ -77,6 +77,14 @@ export default function EditUserProfile() {
     };
 
     try {
+      console.log({ emailChange });
+      console.log({ passwordChange });
+
+      console.log(selectedPreference.codingExperience);
+      console.log(selectedPreference.algoExperience);
+
+      console.log(selectedPreference.language);
+
       await postUserEditPreference(userId, updatedUserInfo);
       console.log("User profile updated successfully");
     } catch (error) {
@@ -145,10 +153,7 @@ export default function EditUserProfile() {
                         <Select
                           name={preference.name}
                           onChange={handleItemSelection}
-                          value={
-                            selectedPreference[preference.name] ||
-                            preference.options[0]
-                          }
+                          value={selectedPreference[preference.name]}
                         >
                           {preference.options.map((option, index) => (
                             <MenuItem value={option}>{option}</MenuItem>
