@@ -11,17 +11,17 @@ interface Props {
 const RecentSubmissions: React.FC<Props> = ({ submissions }, index) => {
   const columns = [
     {
-      title: "Problem_ID",
+      title: "Problem ID",
       dataIndex: "problemId",
       key: "problemId",
     },
     {
-      title: "Problem_Title",
+      title: "Problem Title",
       dataIndex: "problemTitle",
       key: "problemTitle",
     },
     {
-      title: "Submission_Date",
+      title: "Submission Date",
       dataIndex: "timeSubmitted",
       key: "timeSubmitted",
       render: timestampFormatter,

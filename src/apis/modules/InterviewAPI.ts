@@ -104,7 +104,7 @@ export const updateEditorToServer = async (interviewId: number, code: string, la
   }
 }
 
-export const sendChatMessage = async (interviewId: number, code: string, message: string) => {
+export const sendChatMessage = async (interviewId: number, problemId: number, code: string, message: string) => {
   try {
     const response = await axios.post(
       `https://ezprep.discovery.cs.vt.edu/api/chat`,
@@ -112,7 +112,8 @@ export const sendChatMessage = async (interviewId: number, code: string, message
         message: message,
         code: code,
         interview_id: interviewId,
-        user_id: appState.userId
+        user_id: appState.userId,
+        problem_id: problemId,
       }
     )
     return response.data.response;

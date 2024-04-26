@@ -88,11 +88,11 @@ function InterviewPage() {
 
   const onSendChatMessage = async (message: string) => {
     console.log(interviewInfo);
-    if (!editorValue?.code) {
+    if (!editorValue?.code || !problemId) {
       return
     }
     console.log(message);
-    sendChatMessage(interviewId.current, editorValue.code, message).then((res) => {
+    sendChatMessage(interviewId.current, parseInt(problemId), editorValue.code, message).then((res) => {
       setMessageHistory((prevState) => [...prevState, {
           content: res,
           fromAi: true

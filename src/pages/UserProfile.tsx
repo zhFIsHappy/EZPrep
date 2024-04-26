@@ -23,7 +23,9 @@ export default function UserProfile() {
     }
   };
   useEffect(() => {
-    if (!appState.isLoggedIn) return;
+    if (!appState.isLoggedIn) {
+      return;
+    }
     fetchProblems(1);
   }, []);
 

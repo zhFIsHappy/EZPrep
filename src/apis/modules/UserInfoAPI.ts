@@ -30,14 +30,14 @@ export const getUserSolvedQuestionsCount = async (user_id: number) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const ServerErrors = error as AxiosError<ServerError>;
-      if (ServerErrors && ServerErrors.response) {
-        console.log(ServerErrors.response.data);
-        return ServerErrors.response.data;
-      }
-    }
-    // console.log("somethings went wrong!");
-    return { errorMessage: "We cannot get problem statement" };
+    // if (axios.isAxiosError(error)) {
+    //   const ServerErrors = error as AxiosError<ServerError>;
+    //   if (ServerErrors && ServerErrors.response) {
+    //     console.log(ServerErrors.response.data);
+    //     return ServerErrors.response.data;
+    //   }
+    // }
+    // // console.log("somethings went wrong!");
+    // return { errorMessage: "We cannot get problem statement" };
   }
 };
