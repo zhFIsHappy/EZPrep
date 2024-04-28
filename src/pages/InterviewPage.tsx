@@ -18,6 +18,24 @@ import {ChatMessage, EditorValue, InterviewInfo, ProblemStatement} from "../type
 import {commentProblemStatement} from "../utils/CodeFormatter";
 import axios from "axios";
 import ExistInterviewAlertDialog from "../components/ExistInterviewAlertDialog";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+
+const FinishInterviewDialog = ({ backToProblemSet }) => {
+  return (
+    <Dialog open={true}>
+      <DialogTitle style={{ fontSize: "24px" }}>{"Congratulations!"}</DialogTitle>
+      <DialogContent sx={{ width: '600px' }}>
+        <p>{`You have successfully finished the interview.`}</p>
+        <p>{`Take a look and have a try with other problems!`}</p>
+      </DialogContent>
+      <DialogActions>
+        <Button sx={{ textTransform: 'none' }} onClick={backToProblemSet}>{"Go back to problemset"}</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 function InterviewPage() {
   const navigate= useNavigate();
   let { problemId } = useParams();
@@ -30,6 +48,7 @@ function InterviewPage() {
   const [messageHistory, setMessageHistory] = useState<ChatMessage[]>([]);
   const [interviewInfo, setInterviewInfo] = useState<InterviewInfo>();
   const [endTime, setEndTime] = useState(0);
+  const [ended, setEnded] = useState(false);
   const loaded = useRef(false);
 
   const submitCode = async (code: string, language: string) => {
@@ -45,7 +64,6 @@ function InterviewPage() {
     if (!response) {
       return
     }
-    console.log(response);
     setInterviewInfo(response);
     setEndTime(response.endTime);
     if (response.interviewId !== undefined) {
@@ -66,7 +84,6 @@ function InterviewPage() {
       val.code = commentProblemStatement(ps?.problem_statement, appState.languagePreference)??"";
       val.language = appState.languagePreference;
     }
-    console.log(val);
     updateEditorToServer(interviewId?.current, val.code, val.language);
     setEditorValue(val);
   };
@@ -87,17 +104,14 @@ function InterviewPage() {
   }
 
   const onSendChatMessage = async (message: string) => {
-    console.log(interviewInfo);
     if (!editorValue?.code || !problemId) {
       return
     }
-    console.log(message);
     sendChatMessage(interviewId.current, parseInt(problemId), editorValue.code, message).then((res) => {
       setMessageHistory((prevState) => [...prevState, {
           content: res,
           fromAi: true
         } as ChatMessage]);
-      console.log(res);
     });
   }
 
@@ -108,10 +122,14 @@ function InterviewPage() {
     } as EditorValue);
   }
 
+  const backToProblemSet = () => {
+    navigate("/problemset");
+  }
+
   const finishInterview = async () => {
     finishInterviewRequest(interviewId.current).then(() => {
-      // TODO: After finish interview
-      navigate("/problemset");
+      setEnded(true);
+      // backToProblemSet();
     });
   }
 
@@ -119,7 +137,7 @@ function InterviewPage() {
     if (!appState.isLoggedIn) {
       return (<LoginAlertDialog />);
     }
-    if (!interviewInfo || interviewInfo.prevExist) {
+    if (interviewInfo && interviewInfo.prevExist) {
       return (<ExistInterviewAlertDialog interviewId={interviewId.current}/>);
     }
     // TODO(?): Add success landing page
@@ -128,6 +146,7 @@ function InterviewPage() {
   return (
     <>
       {interviewAlterDialogDOM()}
+      {ended? <FinishInterviewDialog backToProblemSet={backToProblemSet}/>:<div/>}
       <div className="interview-layout">
         <div className="interview-header-container">
           <InterviewHeader initEndTime={endTime} onFinishInterview={finishInterview}/>
@@ -142,7 +161,7 @@ function InterviewPage() {
             />
           </div>
           <div className="interview-chat-container">
-            <div className="interview-chat-container-top"></div>
+            {/*<div className="interview-chat-container-top"></div>*/}
             <div className="interview-chat-container-bottom">
               <ChatBox
                 messages={messageHistory}

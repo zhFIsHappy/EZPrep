@@ -45,16 +45,18 @@ export const getUserCodingPreferenceInfo = async (user_id: number) => {
   }
 };
 
-export const getUserSolvedQuestionsCount = async (user_id: number) => {
+export const getUserSolvedQuestions = async (user_id: number) => {
   try {
-    const response = await axios.get<userSolvedQuestionsCount>(
-      "https://ezprep.discovery.cs.vt.edu/api/user-solved/"
+    const response = await axios.post(
+      "https://ezprep.discovery.cs.vt.edu/api/user/solved",
+      {
+        user_id: user_id
+      }
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log("cannot get User Solved Questions Count");
+    // console.log("cannot get User Solved Questions Count");
   }
 };
 
@@ -64,8 +66,7 @@ export const postUserEditPreference = async (
 ) => {
   try {
     const response = await axios.post<EditUserPreferenceInfo[]>(
-      `https://ezprep.discovery.cs.vt.edu/api/prefernece/edit`,
-
+      `https://ezprep.discovery.cs.vt.edu/api/preference/edit`,
       {
         user_id: userId,
         email: editInfo.email,

@@ -10,6 +10,8 @@ function responseMapper (response: AxiosResponse): SubmissionResponseInfo[] {
       problemTitle: item.problem_title,
       language: item.language,
       timeSubmitted: item.submit_time,
+      aiResponse: item.ai_response,
+      result: item.ai_check_result
     };
     return submissionInfo;
   });
@@ -54,6 +56,29 @@ export const getAllSubmissions = async (userId: number) => {
       }
     }
     return { errorMessage: "We cannot get submissions" };
+  }
+};
+
+
+export const getSubmissionById = async (submissionId: string) => {
+  try {
+    const response = await axios.get(
+      `https://ezprep.discovery.cs.vt.edu/api/submission/${submissionId}`
+    );
+    const item = response.data;
+    const submissionInfo: SubmissionResponseInfo & {code: string} = {
+      submissionId: item.submission_id,
+      problemId: item.problem_id,
+      problemTitle: item.problem_title,
+      language: item.language,
+      timeSubmitted: item.submit_time,
+      aiResponse: item.ai_response,
+      result: item.ai_check_result,
+      code: item.code,
+    };
+    return submissionInfo;
+  } catch (error) {
+
   }
 };
 

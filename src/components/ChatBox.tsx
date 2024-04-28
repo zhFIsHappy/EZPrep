@@ -8,7 +8,7 @@ import { ChatMessage, SenderType } from "../types";
 // import { MessagesContext } from "../contexts/InterviewContext";
 // import { MessageTypes } from "../reducers/MessagesReducer";
 import axios from "axios";
-import {sendChatMessage,} from "../apis/modules/InterviewAPI";
+import {sendChatMessage} from "../apis/modules/InterviewAPI";
 
 const ChatPanel = ({
   messages, sendChatMessage, appendMessageHistory
@@ -32,7 +32,6 @@ const ChatPanel = ({
 
   const onSendMessage = (e: any) => {
     e.preventDefault();
-    console.log(inputBoxContent);
     appendMessageHistory(inputBoxContent, false);
     sendChatMessage(inputBoxContent);
     clearInput();
@@ -67,12 +66,10 @@ const ChatPanel = ({
   };
 
   useEffect(() => {
-    console.log(messages);
     scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
-    console.log('cb reload')
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -126,7 +123,7 @@ const ChatPanel = ({
   };
 
   return (
-    <div className="App">
+    <div className="chat-area">
       {/* <div */}
       <ul id="messages-container" className="messages">
         {messages.map((message: ChatMessage, index: number) =>

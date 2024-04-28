@@ -14,7 +14,7 @@ export default function UserProfile() {
 
   const fetchProblems = async (page: number) => {
     try {
-      const submissions = await getSubmissions(page, 6, appState.userId);
+      const submissions = await getSubmissions(page, 7, appState.userId);
 
       if (Array.isArray(submissions)) {
         setSubmissions(submissions);

@@ -9,6 +9,11 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { Link } from "react-router-dom";
 import "../assets/css/problemset.css";
 import { difficultyMap } from "../assets/static/problems";
+import {ProblemInfo} from "../types";
+import DoneIcon from "@mui/icons-material/Done";
+import AdjustIcon from "@mui/icons-material/Adjust";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CloseIcon from "@mui/icons-material/Close";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -20,7 +25,44 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const ProblemTable = ({ problems, isLoading }) => {
+type ProblemTableProps = {
+  problems: any,
+  isLoading: boolean,
+  solved: any,
+}
+
+const ProblemTable = ({ problems, solved, isLoading }: ProblemTableProps) => {
+
+  const statusDOM = (problem: ProblemInfo) => {
+    if (!solved) {
+      return <></>
+    }
+    switch (solved[problem.problem_id]) {
+      case 3: {
+        return (
+          <div className="optimal-status-dom">
+            <DoneIcon/>
+          </div>
+        )
+      }
+      case 2: {
+        return (
+          <div className="sub-optimal-status-dom">
+            <AccessTimeIcon/>
+          </div>
+        )
+      }
+      case 1: {
+        return (
+          <div className="not-complete-status-dom">
+            <CloseIcon/>
+          </div>
+        )
+      }
+
+    }
+  }
+
   const problemTableRowsDOM = (isLoading: boolean) => {
     if (isLoading) {
       return problems.map((problem, index) => (
@@ -41,8 +83,8 @@ const ProblemTable = ({ problems, isLoading }) => {
       ));
     } else {
       return problems.map((problem) => (
-        <TableRow key={problem.problem_id}>
-          <TableCell></TableCell>
+        <TableRow key={problem.problem_id} style={{ height: "60px" }}>
+          <TableCell>{statusDOM(problem)}</TableCell>
           <TableCell>{problem.problem_id}</TableCell>
           <TableCell component="th" scope="row">
             <Link to={`/problem/${problem.problem_id}`}>
