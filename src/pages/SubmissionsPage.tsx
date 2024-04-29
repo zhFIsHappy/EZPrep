@@ -1,6 +1,5 @@
 import * as React from 'react';
 import TabHeader from "./TabsHeader";
-import ProblemTable from "../components/ProblemTable";
 import { Pagination } from "@mui/material";
 import "../assets/css/SubmissionPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
