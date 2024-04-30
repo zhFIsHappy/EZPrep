@@ -66,7 +66,6 @@ function interviewInfoResponseMapper (response: AxiosResponse): InterviewInfo {
       } as ChatMessage
     )),
   };
-  console.log(interviewInfo);
   return interviewInfo;
 }
 

@@ -50,7 +50,6 @@ export function RegisterContextProvider({children}: React.PropsWithChildren<{}>)
   const modifyPreference = (name: any, value: any) => {
     if (name === "time") {
       value = Number(value);
-      console.log(value);
       setPreferenceTime(value);
       if (value <= 0) {
         setSelectedPreference({ ...selectedPreference, [name]: 1});

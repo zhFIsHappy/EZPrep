@@ -1,8 +1,10 @@
 import { Progress } from "antd";
 import { useEffect, useState } from "react";
-import { getUserSolvedQuestionsCount } from "../../apis/modules/UserInfoAPI";
+import { getUserSolvedQuestions } from "../../apis/modules/UserInfoAPI";
 import "../../assets/css/problemsolved.css";
 import { appState } from "../../appState";
+import { getAllProblem } from "../../apis/modules/ProblemTableAPI";
+import {ProblemInfo} from "../../types";
 
 export default function UserProgress() {
   const [easySolvedAmount, setEasySolved] = useState<number>(0);
@@ -11,17 +13,28 @@ export default function UserProgress() {
   const [easyTotal, setEasyTotal] = useState<number>(0);
   const [mediumTotal, setMediumTotal] = useState<number>(0);
   const [hardTotal, setHardTotal] = useState<number>(0);
+
+  const countSolved = (problems: ProblemInfo[], difficulty: number, solved: any) => {
+    return problems
+      .filter(p =>
+        parseInt(p.problem_difficulty) === difficulty && solved[p.problem_id] === 3)
+      .length
+  }
+
+  const countDifficulty = (problems: ProblemInfo[], difficulty: number) => {
+    return problems.filter(p => parseInt(p.problem_difficulty) === difficulty).length;
+  }
+
   async function getUserSolvedAmount(user_id: number) {
-    const userSubmissionAmountResponse = await getUserSolvedQuestionsCount(
-      user_id
-    );
-    if (userSubmissionAmountResponse) {
-      setEasySolved(userSubmissionAmountResponse.easy_finished);
-      setMediumSolvedAmount(userSubmissionAmountResponse.medium_finished);
-      setHardSolvedAmount(userSubmissionAmountResponse.hard_finished);
-      setEasyTotal(userSubmissionAmountResponse.easy_total);
-      setMediumTotal(userSubmissionAmountResponse.medium_total);
-      setHardTotal(userSubmissionAmountResponse.hard_total);
+    const solved = await getUserSolvedQuestions(user_id);
+    const problems = await getAllProblem();
+    if (solved && Array.isArray(problems)) {
+      setEasySolved(countSolved(problems, 1, solved));
+      setMediumSolvedAmount(countSolved(problems, 2, solved));
+      setHardSolvedAmount(countSolved(problems, 3, solved));
+      setEasyTotal(countDifficulty(problems, 1));
+      setMediumTotal(countDifficulty(problems, 2));
+      setHardTotal(countDifficulty(problems, 3));
     } else {
       console.error(
         "An error occurred when getting user solved questions amount :"
@@ -36,30 +49,30 @@ export default function UserProgress() {
     <div className="progress-container">
       <h4>
         Easy : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {easySolvedAmount / easyTotal}
+        {easySolvedAmount} / {easyTotal}
       </h4>
       <Progress
-        percent={(easySolvedAmount / easyTotal) * 100}
+        percent={+((easySolvedAmount / easyTotal) * 100).toFixed(2)}
         strokeColor="var(--difficulty-easy)"
-        size="small"
+        size="default"
       />
       <h4>
         Medium : &nbsp;
-        {mediumSolvedAmount / mediumTotal}
+        {mediumSolvedAmount} / {mediumTotal}
       </h4>
       <Progress
-        percent={(mediumSolvedAmount / mediumTotal) * 100}
+        percent={+((mediumSolvedAmount / mediumTotal) * 100).toFixed(2)}
         strokeColor="var(--difficulty-medium)"
-        size="small"
+        size="default"
       />
       <h4>
         Hard : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {hardSolvedAmount / hardTotal}
+        {hardSolvedAmount} / {hardTotal}
       </h4>
       <Progress
-        percent={(hardSolvedAmount / hardTotal) * 100}
-        strokeColor="var(--difficulty-medium)"
-        size="small"
+        percent={+((hardSolvedAmount / hardTotal) * 100).toFixed(2)}
+        strokeColor="var(--difficulty-hard)"
+        size="default"
       />
     </div>
   );

@@ -1,5 +1,7 @@
 .progress-container {
-  margin-bottom: 100px;
+  /*margin-bottom: 20px;*/
+  margin: auto 30px 20px 30px;
+
   h4 {
     margin-bottom: auto;
   }

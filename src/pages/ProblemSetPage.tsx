@@ -6,6 +6,8 @@ import { getAllProblem, getProblemByPage } from "../apis/modules/ProblemTableAPI
 import { useNavigate, useLocation } from 'react-router-dom';
 import TabHeader from "./TabsHeader";
 import * as React from "react";
+import {getUserSolvedQuestions} from "../apis/modules/UserInfoAPI";
+import {appState} from "../appState";
 
 export function ProblemSetPage() {
   const location = useLocation();
@@ -17,6 +19,7 @@ export function ProblemSetPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [problemsPerPage, setProblemsPerPage] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
+  const [solved, setSolved] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +27,8 @@ export function ProblemSetPage() {
     (async function () {
       try {
         const allProblemResponse = await getAllProblem();
+        const solved = await getUserSolvedQuestions(appState.userId);
+        setSolved(solved);
         if (Array.isArray(allProblemResponse)) {
           setTotalPages(Math.ceil(allProblemResponse.length / problemsPerPage));
         }
@@ -60,7 +65,7 @@ export function ProblemSetPage() {
     <>
       <TabHeader/>
       <div className="problem-set-container">
-        <ProblemTable problems={isLoading? Array.from(new Array(problemsPerPage)):problems} isLoading={isLoading} />
+        <ProblemTable problems={isLoading? Array.from(new Array(problemsPerPage)):problems} solved={solved} isLoading={isLoading} />
         <Pagination
           style={{ padding: "10px", marginTop: "15px" }}
           page={currentPage}

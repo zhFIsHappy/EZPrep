@@ -34,8 +34,8 @@ export default function UserDetails() {
           <Avatar
             sx={{
               bgcolor: "primary.main",
-              width: 200,
-              height: 200,
+              width: 180,
+              height: 180,
               fontSize: 85,
             }}
           >
@@ -43,8 +43,8 @@ export default function UserDetails() {
           </Avatar>
         </div>
         <div className="userinfo-content">
-          <p className="username"> Username: {appState.userName}</p>
-          <p className="user_id">User_ID: {appState.userId}</p>
+          <p className="username" style={{ fontSize: "20px" }}> {appState.userName} </p>
+          {/*<p className="user_id">User_ID: {appState.userId}</p>*/}
         </div>
         <Button
           variant="outlined"

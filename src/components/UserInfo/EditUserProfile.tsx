@@ -85,7 +85,7 @@ export default function EditUserProfile() {
   };
 
   return (
-    <div>
+    <div style={{ paddingBottom: "30px" }}>
       <div className="edit-user-info-container">
         <Box
           sx={{
@@ -101,8 +101,8 @@ export default function EditUserProfile() {
           <Avatar
             sx={{
               bgcolor: "primary.main",
-              width: 200,
-              height: 200,
+              width: 180,
+              height: 180,
               fontSize: 85,
             }}
             className="avatar"

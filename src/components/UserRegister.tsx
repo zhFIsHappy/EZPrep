@@ -85,7 +85,6 @@ const Register = ({ onButtonClick }) => {
         });
 
       // onButtonClick("pagetwo");
-      console.log("Form Submitted", formData);
     } catch (error: any) {
       const newErrors = {
         name: "",

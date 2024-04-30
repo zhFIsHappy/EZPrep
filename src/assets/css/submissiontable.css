@@ -1,0 +1,11 @@
+.optimal-status-dom {
+  color: var(--status-optimal);
+}
+
+.sub-optimal-status-dom {
+  color: var(--status-sub-optimal);
+}
+
+.not-complete-status-dom {
+  color: var(--status-not-complete);
+}

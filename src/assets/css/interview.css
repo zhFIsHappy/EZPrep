@@ -32,7 +32,7 @@
 .interview-chat-container-bottom {
   flex: 1;
   padding: 10px 10px 15px 10px;
-  max-height: 50%;
+  max-height: 100%;
 }
 .code-editor {
   /*display: table-cell;*/
