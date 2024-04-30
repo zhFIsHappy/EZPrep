@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { appState } from "../../appState";
+import { useNavigate } from "react-router-dom";
 import {
   getUserAccountInfo,
   getUserCodingPreferenceInfo,
@@ -9,7 +10,7 @@ import "../../assets/css/edituserprofile.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
+import { Alert, FormControl } from "@mui/material";
 import Select from "@mui/material/Select";
 import { EditPreferences } from "../../assets/static/preferences";
 import { Avatar, MenuItem } from "@mui/material";
@@ -27,8 +28,11 @@ export default function EditUserProfile() {
 
   const [emailChange, setEmailChange] = useState("");
   const [passwordChange, setPasswordChange] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false); // State to track if form submission was successful
+
   const { selectedPreference, modifyPreference } = useContext(RegisterContext);
 
+  const navigate = useNavigate();
   async function userAccountInfo(user_id: number) {
     try {
       const userAccountInfoResponse = await getUserAccountInfo(user_id);
@@ -75,17 +79,21 @@ export default function EditUserProfile() {
       codingExp: selectedPreference.algoExperience,
       codingLang: selectedPreference.language,
     };
-
     try {
       await postUserEditPreference(userId, updatedUserInfo);
+      setSubmitSuccess(true); // Set state to indicate successful form submission
       console.log("User profile updated successfully");
+      setTimeout(() => {
+        setSubmitSuccess(false); // Hide the alert after a delay
+        navigate("/profile"); // Navigate to the desired route after delay
+      }, 1000);
     } catch (error) {
       console.error("Error updating user profile", error);
     }
   };
 
   return (
-    <div style={{ paddingBottom: "30px" }}>
+    <div style={{ position: "relative", paddingBottom: "30px" }}>
       <div className="edit-user-info-container">
         <Box
           sx={{
@@ -135,7 +143,7 @@ export default function EditUserProfile() {
             </form>
             <div>
               {EditPreferences.map((preference, index) => (
-                <div>
+                <div key={index}>
                   <div className="register-preference-question-area">
                     <h3>{preference.question}</h3>
                   </div>
@@ -151,7 +159,9 @@ export default function EditUserProfile() {
                           }
                         >
                           {preference.options.map((option, index) => (
-                            <MenuItem value={option}>{option}</MenuItem>
+                            <MenuItem key={index} value={option}>
+                              {option}
+                            </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
@@ -168,6 +178,13 @@ export default function EditUserProfile() {
             >
               Save Changes
             </Button>
+            {submitSuccess && (
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0 }}>
+                <Alert variant="filled" severity="success">
+                  <div>Edited File Successfully</div>
+                </Alert>
+              </div>
+            )}
           </div>
         </Box>
       </div>
