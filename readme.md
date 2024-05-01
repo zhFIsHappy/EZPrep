@@ -1,7 +1,7 @@
 # Want to see our live demo?
 
-### https://master.dge5ab061z1gm.amplifyapp.com/
-
+### Live Website: https://master.dge5ab061z1gm.amplifyapp.com/
+### Demo: https://www.youtube.com/watch?v=8Sk01TdAKw8 
 # Tech Stack
 
 ## Frontend
