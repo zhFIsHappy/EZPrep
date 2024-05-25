@@ -23,7 +23,7 @@ Kubernetes,
 
 ## ML
 
-Python
+Python, 
 Llama-2
 
 ### Cloud
