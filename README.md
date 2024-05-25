@@ -6,26 +6,20 @@
 
 ## Frontend
 
-React
-Material UI
+React,
+Typescript, 
+Material UI, 
 Ant Design
 
-### Cloud
-
-AWS Amplify
 
 ## Backend
 
-Gin
-Golang
-gRPC
-REST API
-Docker
-Kubernetes
-
-### Cloud
-
-VT Cloud
+Gin, 
+Golang,
+gRPC, 
+REST API,
+Docker,
+Kubernetes,
 
 ## ML
 
@@ -34,7 +28,9 @@ Llama-2
 
 ### Cloud
 
-HuggingFace(AWS Sagemaker)
+AWS Amplify for frontend hosting,
+VT Cloud for backend hosting,
+Hugging Face(AWS SageMaker) for LLM hosting.
 
 ## Available Scripts
 
